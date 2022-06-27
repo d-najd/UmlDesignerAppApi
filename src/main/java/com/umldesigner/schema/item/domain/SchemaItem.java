@@ -16,6 +16,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "schema_item")
 public class SchemaItem extends BaseEntity {
+   	private static final long serialVersionUID = 1L;
     
     @NonNull
     @Column(name = "position")

@@ -16,6 +16,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "schema_table")
 public class SchemaTable extends UmlObjectEntity{
+    private static final long serialVersionUID = 1L;
+    
     @NonNull
     @Column(name = "title")
     private String title;
