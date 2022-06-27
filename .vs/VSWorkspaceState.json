@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\umldesigner",
+    "\\src\\main\\java\\com\\umldesigner\\infrastructure",
+    "\\src\\main\\java\\com\\umldesigner\\infrastructure\\domain",
+    "\\src\\main\\java\\com\\umldesigner\\infrastructure\\mapper",
+    "\\src\\main\\java\\com\\umldesigner\\infrastructure\\pojo"
+  ],
+  "SelectedNode": "\\src\\main\\java\\com\\umldesigner\\infrastructure\\mapper\\AbstractGeneralMapper.java",
+  "PreviewInSolutionExplorer": false
+}
