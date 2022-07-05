@@ -1,4 +1,4 @@
-package com.umldesigner.infrastructure.domain;
+package com.umldesigner.infrastructure.domain.identities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,9 +9,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.springframework.lang.NonNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable

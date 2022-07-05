@@ -1,10 +1,9 @@
 package com.umldesigner.schema.table.dto;
 
-import com.umldesigner.infrastructure.pojo.UmlObjectPojo;
+import com.umldesigner.infrastructure.pojo.pojos.UmlObjectPojo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

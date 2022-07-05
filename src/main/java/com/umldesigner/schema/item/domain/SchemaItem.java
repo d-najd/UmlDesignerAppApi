@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
 
-import com.umldesigner.infrastructure.domain.BaseEntity;
+import com.umldesigner.infrastructure.domain.entities.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.umldesigner.infrastructure.pojo;
+package com.umldesigner.infrastructure.pojo.identities;
 
 import java.util.Objects;
 
@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BaseMTMPojo{
-	
+public class BaseMTMIdentityPojo {
     private Integer value1;
     private Integer value2;
 
@@ -17,7 +16,7 @@ public class BaseMTMPojo{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BaseMTMPojo that = (BaseMTMPojo) o;
+        BaseMTMIdentityPojo that = (BaseMTMIdentityPojo) o;
 
         if (!value1.equals(that.value1)) 
         	return false;

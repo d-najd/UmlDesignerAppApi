@@ -1,4 +1,4 @@
-package com.umldesigner.infrastructure.domain;
+package com.umldesigner.infrastructure.domain.entities;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

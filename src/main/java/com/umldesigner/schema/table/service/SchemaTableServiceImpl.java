@@ -26,8 +26,8 @@ public class SchemaTableServiceImpl implements SchemaTableService {
     @Override
     public SchemaTablePojo findById(Integer id) {
         try {
-            SchemaTable schemaItemEntity = schemaTableRepository.findById(id).orElseThrow(NotFoundException::new);
-            return schemaTableMapper.entityToDto(schemaItemEntity);
+            SchemaTable schemaTableEntity = schemaTableRepository.findById(id).orElseThrow(NotFoundException::new);
+            return schemaTableMapper.entityToDto(schemaTableEntity);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.umldesigner.schema.item.dto;
 
-import com.umldesigner.infrastructure.pojo.BasePojo;
+import com.umldesigner.infrastructure.pojo.pojos.BasePojo;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

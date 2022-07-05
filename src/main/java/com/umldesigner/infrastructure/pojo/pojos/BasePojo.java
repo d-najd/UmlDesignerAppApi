@@ -1,4 +1,4 @@
-package com.umldesigner.infrastructure.pojo;
+package com.umldesigner.infrastructure.pojo.pojos;
 
 import lombok.Getter;
 import lombok.Setter;
