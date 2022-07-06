@@ -10,7 +10,7 @@ import com.umldesigner.schema.item.dto.SchemaItemPojo;
 import com.umldesigner.schema.item.service.SchemaItemService;
 
 @RestController
-@RequestMapping("/schema/item")
+@RequestMapping("/schema/table/item")
 public class SchemaItemController {
 
     @Autowired
