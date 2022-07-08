@@ -8,5 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BaseMTMPojo {
-    private BaseMTMIdentityPojo identity;   
+    private BaseMTMIdentityPojo identity;  
+    
+    private String uuid;
 }

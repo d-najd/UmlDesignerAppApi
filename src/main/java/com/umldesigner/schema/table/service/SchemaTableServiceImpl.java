@@ -25,12 +25,27 @@ public class SchemaTableServiceImpl implements SchemaTableService {
 
     @Override
     public SchemaTablePojo findById(Integer id) {
+        log.debug("Execute getByUuid with parameter {}", id);
         try {
             SchemaTable schemaTableEntity = schemaTableRepository.findById(id).orElseThrow(NotFoundException::new);
             return schemaTableMapper.entityToDto(schemaTableEntity);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+	public SchemaTablePojo createTable(SchemaTablePojo schemaTablePojo) {
+		log.debug("Execute createBook with parameters ", schemaTablePojo);
+		SchemaTable transientSchemaTable = schemaTableMapper.dtoToEntity(schemaTablePojo);
+		SchemaTable persistedSchemaTable = schemaTableRepository.save(transientSchemaTable);
+		return schemaTableMapper.entityToDto(persistedSchemaTable);
+	}
+
+    @Override
+    public SchemaTablePojo removeTable(SchemaTablePojo schemaTablePojo) {
+        
         return null;
     }
 }
