@@ -10,5 +10,4 @@ import lombok.Setter;
 public class BaseMTMPojo {
     private BaseMTMIdentityPojo identity;  
     
-    private String uuid;
-}
+ }

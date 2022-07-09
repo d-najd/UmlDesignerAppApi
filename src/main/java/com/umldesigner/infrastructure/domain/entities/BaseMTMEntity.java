@@ -1,12 +1,9 @@
 package com.umldesigner.infrastructure.domain.entities;
 
 import java.io.Serializable;
-import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
 
 import com.umldesigner.infrastructure.domain.identities.BaseMTMIdentity;
 
@@ -21,12 +18,4 @@ public class BaseMTMEntity implements Serializable { //NOTE this shouldn't exten
 
     @EmbeddedId
     private BaseMTMIdentity identity;
-
-    @Column(name = "uuid", updatable = false)
-	private UUID uuid;
-
-    @PrePersist
-	public void init() {
-		uuid = UUID.randomUUID();
-	}
 }

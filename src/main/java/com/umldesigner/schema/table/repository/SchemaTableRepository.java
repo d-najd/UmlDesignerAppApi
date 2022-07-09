@@ -9,5 +9,5 @@ import com.umldesigner.schema.table.domain.SchemaTable;
 
 @Repository
 public interface SchemaTableRepository extends JpaRepository<SchemaTable, Integer> {
-    public Optional<SchemaTable> findById(Integer id);
+	public Optional<SchemaTable> findByUuid(String uuid);
 }

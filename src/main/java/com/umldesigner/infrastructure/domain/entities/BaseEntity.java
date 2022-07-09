@@ -25,10 +25,10 @@ public class BaseEntity implements Serializable {
     private Integer id;
 
     @Column(name = "uuid", updatable = false)
-	private UUID uuid;
+	private String uuid;
 
     @PrePersist
 	public void init() {
-		uuid = UUID.randomUUID();
+		uuid = UUID.randomUUID().toString();
 	}
 }

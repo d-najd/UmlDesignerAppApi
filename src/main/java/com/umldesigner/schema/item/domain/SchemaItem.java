@@ -1,16 +1,14 @@
 package com.umldesigner.schema.item.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.umldesigner.infrastructure.domain.entities.BaseEntity;
 import com.umldesigner.schema.table.domain.SchemaTable;
 
@@ -24,10 +22,14 @@ import lombok.Setter;
 public class SchemaItem extends BaseEntity {
    	private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "tableItems")
-    private Set<SchemaTable> boards = new HashSet<>();
+    //@JsonIgnore
+    //@ManyToMany(mappedBy = "tableItems")
+    //private Set<SchemaTable> boards = new HashSet<>();
     
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "table_id", referencedColumnName = "id")
+    private SchemaTable tableId;
+
     @NonNull
     @Column(name = "position")
     private Integer position;

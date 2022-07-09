@@ -1,14 +1,11 @@
 package com.umldesigner.schema.table.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
-import com.umldesigner.schema.item.domain.SchemaItem;
+import com.umldesigner.schema.item.service.SchemaItemService;
 import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.dto.SchemaTablePojo;
 
@@ -16,6 +13,8 @@ import com.umldesigner.schema.table.dto.SchemaTablePojo;
 public class SchemaTableMapperImpl extends AbstractGeneralMapper implements SchemaTableMapper {
 
     @Autowired
+    SchemaItemService schemaItemService;
+
     public SchemaTableMapperImpl(ModelMapper modelMapper) {
         super(modelMapper);
     }
@@ -35,10 +34,5 @@ public class SchemaTableMapperImpl extends AbstractGeneralMapper implements Sche
         entity.setTitle(dto.getTitle());
         entity.setX(dto.getX());
         entity.setY(dto.getY());
-
-        //TODO check if this works
-        List<SchemaItem> list = new ArrayList<>(entity.getTableItems()); 
-        mapList(list, SchemaTablePojo.class);
     }
-
 }

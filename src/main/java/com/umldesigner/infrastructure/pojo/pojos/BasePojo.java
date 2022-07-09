@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BasePojo {
-    private Integer uuid;
+    private String uuid;
 }

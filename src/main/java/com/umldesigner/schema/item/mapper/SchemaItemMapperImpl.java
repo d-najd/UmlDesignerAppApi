@@ -1,7 +1,7 @@
 package com.umldesigner.schema.item.mapper;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
@@ -11,9 +11,22 @@ import com.umldesigner.schema.item.dto.SchemaItemPojo;
 @Component
 public class SchemaItemMapperImpl extends AbstractGeneralMapper implements SchemaItemMapper {
 
-    @Autowired
     public SchemaItemMapperImpl(ModelMapper modelMapper) {
         super(modelMapper);
+    }
+    
+    /**
+     * prevents a recursive bug where schemaItemPojo gets called over and over (from what I understand)
+     * @apiNote this is probably a dumb way of doing things but oh well
+     */
+    @Override
+    public void modelMapperConfig(){
+        modelMapper.addMappings(new PropertyMap<SchemaItem, SchemaItemPojo>() {
+            @Override
+            protected void configure() {
+                skip(destination.getTableId());
+            }
+        });
     }
 
     @Override

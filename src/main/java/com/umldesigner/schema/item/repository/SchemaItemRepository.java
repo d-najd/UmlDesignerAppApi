@@ -9,5 +9,5 @@ import com.umldesigner.schema.item.domain.SchemaItem;
 
 @Repository
 public interface SchemaItemRepository extends JpaRepository<SchemaItem, Integer> {
-    public Optional<SchemaItem> findById(Integer id);
+    public Optional<SchemaItem> findByUuid(String uuid);
 }
