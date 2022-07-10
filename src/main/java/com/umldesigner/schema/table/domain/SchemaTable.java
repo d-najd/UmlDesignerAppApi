@@ -1,10 +1,11 @@
 package com.umldesigner.schema.table.domain;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -38,7 +39,8 @@ public class SchemaTable extends UmlObjectEntity{
     @JsonIgnore
     @OneToMany(mappedBy = "table")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<SchemaItem> items;
+    @OrderBy("position ASC")
+    private List<SchemaItem> items;
     
     @NonNull
     @Column(name = "title")

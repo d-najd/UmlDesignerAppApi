@@ -35,6 +35,7 @@ public class SchemaItem extends BaseEntity {
     @JoinColumn(name = "table_id", referencedColumnName = "id", nullable = false)
     private SchemaTable table;
 
+    @JsonIgnore
     @NonNull
     @Column(name = "position")
     private Integer position;

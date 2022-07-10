@@ -1,5 +1,6 @@
 package com.umldesigner.schema.table_item.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.domain.exceptions.ResourceNotFoundException;
+import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.repository.SchemaTableRepository;
 import com.umldesigner.schema.table_item.domain.SchemaItem;
 import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
+import com.umldesigner.schema.table_item.logic.SchemaItemLogic;
 import com.umldesigner.schema.table_item.mapper.SchemaItemMapper;
 import com.umldesigner.schema.table_item.repository.SchemaItemRepository;
 import com.umldesigner.schema.table_item.service.SchemaItemService;
@@ -28,6 +31,9 @@ public class SchemaItemServiceImpl implements SchemaItemService {
 
     @Autowired
     SchemaItemMapper schemaItemMapper;
+
+    @Autowired
+    SchemaItemLogic schemaItemLogic;
 
     @Autowired
     SchemaTableRepository schemaTableRepository;
@@ -85,22 +91,35 @@ public class SchemaItemServiceImpl implements SchemaItemService {
     @Override
 	public SchemaItemPojo createSchemaItem(String tUuid, SchemaItemPojo schemaItemPojo) {
 		log.debug("Execute createSchemaItem parameters {}, {}", tUuid, schemaItemPojo);
+        SchemaTable schemaTable = schemaTableRepository.findByUuid(tUuid).get();
         SchemaItem transientSchemaItem = schemaItemMapper.dtoToEntity(schemaItemPojo);
-        transientSchemaItem.setTable(schemaTableRepository.findByUuid(tUuid).get());
+        transientSchemaItem.setTable(schemaTable);
+        transientSchemaItem.setPosition(schemaItemLogic.getNextPosition(schemaTable.getItems()));
 		SchemaItem persistedSchemaItem = schemaItemRepository.save(transientSchemaItem);
 
 		return schemaItemMapper.entityToDto(persistedSchemaItem);
 	}
 
     @Override
-    public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoList) {
-        log.debug("Execute createSchemaItemList with parameters {}, {}", tUuid, schemaItemPojoList); 
-        Set<SchemaItemPojo> returnList = new HashSet<>();
-        for (SchemaItemPojo schemaItemPojo : schemaItemPojoList) { //optimization, is possible to optimize this by storing the schemaTable instead of searching for it for every item
+    public List<SchemaItemPojo> createSchemaItemList(String tUuid, List<SchemaItemPojo> schemaItemPojoList){
+        log.debug("Execute createSchemaItemList with parameters {}, {}", tUuid, schemaItemPojoList);
+        List<SchemaItemPojo> returnList = new ArrayList<>();
+        for (SchemaItemPojo schemaItemPojo : schemaItemPojoList){
             returnList.add(createSchemaItem(tUuid, schemaItemPojo));
         }
-       
+        
         return returnList;
+    }
+
+    @Override
+    public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoSet) {
+        log.debug("Execute createSchemaItemSet with parameters {}, {}", tUuid, schemaItemPojoSet); 
+        Set<SchemaItemPojo> returnSet = new HashSet<>();
+        for (SchemaItemPojo schemaItemPojo : schemaItemPojoSet) { //optimization, is possible to optimize this by storing the schemaTable instead of searching for it for every item
+            returnSet.add(createSchemaItem(tUuid, schemaItemPojo));
+        }
+       
+        return returnSet;
     }
 
     @Override

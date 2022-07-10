@@ -57,8 +57,8 @@ public class SchemaItemController {
 
 	@PostMapping("/{tUuid}/item/list")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Set<SchemaItemPojo> createSchemaItemSet(@PathVariable(value = "tUuid") String tUuid, @RequestBody Set<SchemaItemPojo> requestSchemaItemPojoList){
-		return schemaItemService.createSchemaItemSet(tUuid, requestSchemaItemPojoList);
+	public List<SchemaItemPojo> createSchemaItemList(@PathVariable(value = "tUuid") String tUuid, @RequestBody List<SchemaItemPojo> requestSchemaItemPojoList){
+		return schemaItemService.createSchemaItemList(tUuid, requestSchemaItemPojoList);
 	}
 
 	@PutMapping("/item/{uuid}")

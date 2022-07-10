@@ -1,4 +1,4 @@
-package com.umldesigner.schema.table.mapper;
+package com.umldesigner.schema.table.mapper.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
 import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.dto.SchemaTablePojo;
+import com.umldesigner.schema.table.mapper.SchemaTableMapper;
 import com.umldesigner.schema.table_item.mapper.SchemaItemMapper;
 
 @Component
@@ -32,6 +33,7 @@ public class SchemaTableMapperImpl extends AbstractGeneralMapper implements Sche
     @Override
     public void mapRequestedFieldForUpdate(SchemaTable entity, SchemaTablePojo dto) {
         entity.setTitle(dto.getTitle());
+        //create AbstractUmlMapper and UmlMapper which extends the AbstractGeneralMapper and GeneralMapper but map the x and y coordinates automatically
         entity.setX(dto.getX());
         entity.setY(dto.getY());
 

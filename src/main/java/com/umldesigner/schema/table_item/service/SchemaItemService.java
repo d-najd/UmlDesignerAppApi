@@ -22,7 +22,9 @@ public interface SchemaItemService {
 
     public SchemaItemPojo createSchemaItem(String tUuid, SchemaItemPojo schemaItemPojo);
 
-    public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoList);
+    public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoSet);
+
+    public List<SchemaItemPojo> createSchemaItemList(String tUuid, List<SchemaItemPojo> schemaItemPojoList);
 
     public SchemaItemPojo updateSchemaItem(String uuid, SchemaItemPojo schemaItemPojo);
 

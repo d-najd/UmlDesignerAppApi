@@ -78,7 +78,7 @@ public class SchemaTableServiceImpl implements SchemaTableService {
         //creating and setting the items to the persisted table
         SchemaTablePojo mappedSchemaTable = schemaTableMapper.entityToDto(persistedSchemaTable);
 		mappedSchemaTable.setItems(
-            schemaItemService.createSchemaItemSet(persistedSchemaTable.getUuid(), schemaTablePojo.getItems()));
+            schemaItemService.createSchemaItemList(persistedSchemaTable.getUuid(), schemaTablePojo.getItems()));
         
         return mappedSchemaTable;
 	}
