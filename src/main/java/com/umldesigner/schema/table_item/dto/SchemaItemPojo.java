@@ -1,4 +1,4 @@
-package com.umldesigner.schema.item.dto;
+package com.umldesigner.schema.table_item.dto;
 
 import com.umldesigner.infrastructure.pojo.pojos.BasePojo;
 import com.umldesigner.schema.table.dto.SchemaTablePojo;
@@ -13,5 +13,5 @@ public class SchemaItemPojo extends BasePojo {
     private String type;
     private String value;
 
-    private SchemaTablePojo tableId;
+    private SchemaTablePojo table;
 }

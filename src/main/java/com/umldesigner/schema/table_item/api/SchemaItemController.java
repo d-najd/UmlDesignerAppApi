@@ -1,6 +1,7 @@
-package com.umldesigner.schema.item.api;
+package com.umldesigner.schema.table_item.api;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,60 +15,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.umldesigner.schema.item.domain.SchemaItem;
-import com.umldesigner.schema.item.dto.SchemaItemPojo;
-import com.umldesigner.schema.item.repository.SchemaItemRepository;
-import com.umldesigner.schema.item.service.SchemaItemService;
-import com.umldesigner.schema.table.domain.SchemaTable;
+import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
+import com.umldesigner.schema.table_item.repository.SchemaItemRepository;
+import com.umldesigner.schema.table_item.service.SchemaItemService;
 
 @RestController
-@RequestMapping("/schema/item")
+@RequestMapping("/schema/table") //Not sure how to make the item mapping selective so
 public class SchemaItemController {
-
     @Autowired
     SchemaItemService schemaItemService;
 
 	@Autowired
 	SchemaItemRepository schemaItemRepository;
 
-	@GetMapping("/id/{id}")
-	public SchemaItemPojo getById(@PathVariable (value = "id") Integer id){
+	//should be removed in future for security reasons
+	@GetMapping("/item/id/{id}")
+	public SchemaItemPojo getById(@PathVariable(value = "id") Integer id){
 		return schemaItemService.findById(id);
 	}
 
-	@GetMapping("/{uuid}")
+	@GetMapping("/item/{uuid}")
 	public SchemaItemPojo getByUuid(@PathVariable(value = "uuid") String uuid) {
-		SchemaItem item = new SchemaItem();
-		item.setId(100);
-		item.setPosition(0);
-		SchemaTable schemaTable = new SchemaTable();
-		schemaTable.setId(20);
-		item.setType("int");
-		item.setUuid("uuid");
-		item.setValue("value");
-		schemaItemRepository.save(item);
-			return null;
-		//return schemaItemService.getByUuid(uuid);
+		return schemaItemService.getByUuid(uuid);
 	}
 
-	@GetMapping
+	@GetMapping("/item")
 	public List<SchemaItemPojo> getAll() {
 		return schemaItemService.getAll();
 	}
 
-	@PostMapping
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public SchemaItemPojo createSchemaItem(@RequestBody SchemaItemPojo requestSchemaItemPojo) {
-		return schemaItemService.createSchemaItem(requestSchemaItemPojo);
+	@GetMapping("{tUuid}/item")
+	public List<SchemaItemPojo> getAllByTUuid(@PathVariable(value = "tUuid") String tUuid){
+		return schemaItemService.getAllByTableUuid(tUuid);
 	}
 
-	@PutMapping("/{uuid}")
+	@PostMapping("/{tUuid}/item")
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public SchemaItemPojo createSchemaItem(@PathVariable(value = "tUuid") String tUuid, @RequestBody SchemaItemPojo requestSchemaItemPojo) {
+		return schemaItemService.createSchemaItem(requestSchemaItemPojo, tUuid);
+	}
+
+	@PostMapping("/{tUuid}/item/list")
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public Set<SchemaItemPojo> createSchemaItemSet(@PathVariable(value = "tUuid") String tUuid, @RequestBody Set<SchemaItemPojo> requestSchemaItemPojoList){
+		return schemaItemService.createSchemaItemSet(tUuid, requestSchemaItemPojoList);
+	}
+
+	@PutMapping("/item/{uuid}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public SchemaItemPojo updateSchemaItem(@PathVariable(value = "uuid") String uuid, @RequestBody SchemaItemPojo requestSchemaItemPojo) {
 		return schemaItemService.updateSchemaItem(uuid, requestSchemaItemPojo);
 	}
 	
-	@DeleteMapping("/{uuid}")
+	@DeleteMapping("/item/{uuid}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void removeSchemaItem(@PathVariable(value = "uuid") String uuid) {
 		schemaItemService.removeSchemaItem(uuid);

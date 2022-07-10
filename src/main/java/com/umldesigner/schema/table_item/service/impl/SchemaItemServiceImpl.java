@@ -1,4 +1,4 @@
-package com.umldesigner.schema.item.service;
+package com.umldesigner.schema.table_item.service.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.domain.exceptions.ResourceNotFoundException;
-import com.umldesigner.schema.item.domain.SchemaItem;
-import com.umldesigner.schema.item.dto.SchemaItemPojo;
-import com.umldesigner.schema.item.mapper.SchemaItemMapper;
-import com.umldesigner.schema.item.repository.SchemaItemRepository;
 import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.repository.SchemaTableRepository;
+import com.umldesigner.schema.table_item.domain.SchemaItem;
+import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
+import com.umldesigner.schema.table_item.mapper.SchemaItemMapper;
+import com.umldesigner.schema.table_item.repository.SchemaItemRepository;
+import com.umldesigner.schema.table_item.service.SchemaItemService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +54,8 @@ public class SchemaItemServiceImpl implements SchemaItemService {
     @Override
     public SchemaItem findByUuid(String uuid) {
 		log.debug("Execute findByUuid with parameter {}", uuid);
-		return schemaItemRepository.findByUuid(uuid).orElseThrow(() -> {
+		
+        return schemaItemRepository.findByUuid(uuid).orElseThrow(() -> {
 			log.error("Error: Resource SchemaItem with uuid {} is not found", uuid);
 			return new ResourceNotFoundException("Resource SchemaItem not found");
 		});
@@ -64,36 +66,10 @@ public class SchemaItemServiceImpl implements SchemaItemService {
 		return schemaItemMapper.mapList(schemaItemRepository.findAll(), SchemaItemPojo.class);
     }
 
-    @Override
-	public SchemaItemPojo createSchemaItem(SchemaItemPojo schemaItemPojo) {
-		log.debug("Execute createItem with parameters {}", schemaItemPojo);
-		SchemaItem transientSchemaItem = schemaItemMapper.dtoToEntity(schemaItemPojo);
-        transientSchemaItem.setTableId(schemaTableRepository.findById(20).get());
-
-        log.debug("formaafter t {}", transientSchemaItem.getTableId());
-		SchemaItem persistedSchemaItem = schemaItemRepository.save(transientSchemaItem);
-
-		return schemaItemMapper.entityToDto(persistedSchemaItem);
-	}
 
     @Override
-    public Set<SchemaItemPojo> createSchemaItemSet(Set<SchemaItemPojo> schemaItemPojoSet) {
-        log.debug("Execute createItemSet with parameters {}", schemaItemPojoSet);
-        Set<SchemaItemPojo> returnSet = new HashSet<>();
-        for (SchemaItemPojo schemaItemPojo : schemaItemPojoSet){
-            returnSet.add(createSchemaItem(schemaItemPojo));
-        }
-        log.debug("returnset is {}", returnSet); 
-        return returnSet;
-    }
-
-    @Override
-    public SchemaItemPojo updateSchemaItem(String uuid, SchemaItemPojo schemaItemPojo) {
-        log.debug("Execute updateItem with parameters {}", schemaItemPojo);
-		SchemaItem persistedSchemaItem = findByUuid(uuid);
-		schemaItemMapper.mapRequestedFieldForUpdate(persistedSchemaItem, schemaItemPojo);
-
-		return schemaItemMapper.entityToDto(schemaItemRepository.saveAndFlush(persistedSchemaItem));
+    public List<SchemaItemPojo> getAllByTableUuid(String tUuid) {
+        return schemaItemMapper.mapList(schemaItemRepository.findAllByTableUuid(tUuid), SchemaItemPojo.class);
     }
 
     @Override
@@ -102,4 +78,33 @@ public class SchemaItemServiceImpl implements SchemaItemService {
 	    schemaItemRepository.delete(persistedSchemaItem);
     }
 
+    @Override
+	public SchemaItemPojo createSchemaItem(SchemaItemPojo schemaItemPojo, String tUuid) {
+		log.debug("Execute createItem with table Uuid {} and parameters {}", tUuid, schemaItemPojo);
+		SchemaItem transientSchemaItem = schemaItemMapper.dtoToEntity(schemaItemPojo);
+        transientSchemaItem.setTable(schemaTableRepository.findByUuid(tUuid).get());
+		SchemaItem persistedSchemaItem = schemaItemRepository.save(transientSchemaItem);
+
+		return schemaItemMapper.entityToDto(persistedSchemaItem);
+	}
+
+    @Override
+    public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoList) {
+        log.debug("Execute createItemList with table Uuid {} and parameters {} ", tUuid, schemaItemPojoList);
+        Set<SchemaItemPojo> returnList = new HashSet<>();
+        for (SchemaItemPojo schemaItemPojo : schemaItemPojoList) { //optimization, is possible to optimize this by storing the schemaTable instead of searching for it for every item
+            returnList.add(createSchemaItem(schemaItemPojo, tUuid));
+        }
+       
+        return returnList;
+    }
+
+    @Override
+    public SchemaItemPojo updateSchemaItem(String uuid, SchemaItemPojo schemaItemPojo) {
+        log.debug("Execute updateItem with uuid {} and parameters {}", uuid, schemaItemPojo);
+		SchemaItem persistedSchemaItem = findByUuid(uuid);
+		schemaItemMapper.mapRequestedFieldForUpdate(persistedSchemaItem, schemaItemPojo);
+
+		return schemaItemMapper.entityToDto(schemaItemRepository.saveAndFlush(persistedSchemaItem));
+    }
 }

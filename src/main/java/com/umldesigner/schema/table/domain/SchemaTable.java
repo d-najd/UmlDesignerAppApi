@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.umldesigner.infrastructure.domain.entities.UmlObjectEntity;
-import com.umldesigner.schema.item.domain.SchemaItem;
+import com.umldesigner.schema.table_item.domain.SchemaItem;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +36,8 @@ public class SchemaTable extends UmlObjectEntity{
     */
 
     @JsonIgnore
-    @OneToMany(mappedBy = "tableId")
+    @OneToMany(mappedBy = "table")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<SchemaItem> items;
     
     @NonNull

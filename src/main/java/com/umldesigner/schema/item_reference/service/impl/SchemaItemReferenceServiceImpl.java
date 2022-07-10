@@ -1,4 +1,4 @@
-package com.umldesigner.schema.item_reference.service;
+package com.umldesigner.schema.item_reference.service.impl;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +11,7 @@ import com.umldesigner.schema.item_reference.domain.SchemaItemReference;
 import com.umldesigner.schema.item_reference.dto.SchemaItemReferencePojo;
 import com.umldesigner.schema.item_reference.mapper.SchemaItemReferenceMapper;
 import com.umldesigner.schema.item_reference.repository.SchemaItemReferenceRepository;
+import com.umldesigner.schema.item_reference.service.SchemaItemReferenceService;
 
 import lombok.extern.slf4j.Slf4j;
 

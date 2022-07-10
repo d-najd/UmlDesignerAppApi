@@ -11,4 +11,5 @@ import com.umldesigner.schema.item_reference.domain.SchemaItemReference;
 @Repository 
 public interface SchemaItemReferenceRepository extends JpaRepository<SchemaItemReference, BaseMTMIdentity> {
     public Optional<SchemaItemReference> findById(BaseMTMIdentity identity);
+    
 }

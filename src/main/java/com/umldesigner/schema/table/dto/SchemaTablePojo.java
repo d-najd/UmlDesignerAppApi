@@ -3,7 +3,7 @@ package com.umldesigner.schema.table.dto;
 import java.util.Set;
 
 import com.umldesigner.infrastructure.pojo.pojos.UmlObjectPojo;
-import com.umldesigner.schema.item.dto.SchemaItemPojo;
+import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

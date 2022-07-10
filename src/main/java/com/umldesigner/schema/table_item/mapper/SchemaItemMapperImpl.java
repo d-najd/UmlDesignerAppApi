@@ -1,12 +1,12 @@
-package com.umldesigner.schema.item.mapper;
+package com.umldesigner.schema.table_item.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
-import com.umldesigner.schema.item.domain.SchemaItem;
-import com.umldesigner.schema.item.dto.SchemaItemPojo;
+import com.umldesigner.schema.table_item.domain.SchemaItem;
+import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
 
 @Component
 public class SchemaItemMapperImpl extends AbstractGeneralMapper implements SchemaItemMapper {
@@ -24,7 +24,7 @@ public class SchemaItemMapperImpl extends AbstractGeneralMapper implements Schem
         modelMapper.addMappings(new PropertyMap<SchemaItem, SchemaItemPojo>() {
             @Override
             protected void configure() {
-                skip(destination.getTableId());
+                skip(destination.getTable());
             }
         });
     }
@@ -40,7 +40,7 @@ public class SchemaItemMapperImpl extends AbstractGeneralMapper implements Schem
     }
 
     @Override
-    public void mapRequestedFieldForUpdate(SchemaItem entity, SchemaItemPojo dto) {
+    public void mapRequestedFieldForUpdate(SchemaItem entity, SchemaItemPojo dto) { //very clever
         entity.setPosition(dto.getPosition());
         entity.setType(dto.getType());
         entity.setValue(dto.getValue());

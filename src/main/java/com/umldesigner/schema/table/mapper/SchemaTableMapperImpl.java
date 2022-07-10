@@ -5,15 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
-import com.umldesigner.schema.item.service.SchemaItemService;
 import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.dto.SchemaTablePojo;
+import com.umldesigner.schema.table_item.mapper.SchemaItemMapper;
 
 @Component
 public class SchemaTableMapperImpl extends AbstractGeneralMapper implements SchemaTableMapper {
 
     @Autowired
-    SchemaItemService schemaItemService;
+    SchemaItemMapper schemaItemMapper;
 
     public SchemaTableMapperImpl(ModelMapper modelMapper) {
         super(modelMapper);
@@ -34,5 +34,24 @@ public class SchemaTableMapperImpl extends AbstractGeneralMapper implements Sche
         entity.setTitle(dto.getTitle());
         entity.setX(dto.getX());
         entity.setY(dto.getY());
+
+        /*  not sure how to do mapping for fields so I will leave it for now
+        entity.setItems(dto.getItems());
+
+        SchemaItem[] schemaItems = (SchemaItem[]) entity.getItems().toArray();
+        SchemaItemPojo[] schemaItemsPojo = (SchemaItemPojo[]) dto.getItems().toArray();
+
+        //I am 99% sure there is a better way
+        for(int i = 0; i < schemaItems.length; i++){
+            for (int b = 0; b < schemaItemsPojo.length; b++){
+                if (schemaItems[i].getUuid().equals(schemaItemsPojo[b].getUuid())){
+                    schemaItemMapper.mapRequestedFieldForUpdate(schemaItems[i], schemaItemsPojo[i]);
+                    break;
+                }
+            }
+        }
+        */
+
+        
     }
 }
