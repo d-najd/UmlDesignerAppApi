@@ -20,11 +20,9 @@ public interface SchemaItemService {
 
     public List<SchemaItemPojo> getAllByTableUuid(String tUuid);
 
-    public SchemaItemPojo createSchemaItem(SchemaItemPojo schemaItemPojo, String tUuid);
+    public SchemaItemPojo createSchemaItem(String tUuid, SchemaItemPojo schemaItemPojo);
 
     public Set<SchemaItemPojo> createSchemaItemSet(String tUuid, Set<SchemaItemPojo> schemaItemPojoList);
-
-    public Set<SchemaItem> createSchemaItemSetRaw(String tUuid, Set<SchemaItem> schemaItemList);
 
     public SchemaItemPojo updateSchemaItem(String uuid, SchemaItemPojo schemaItemPojo);
 

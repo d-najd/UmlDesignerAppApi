@@ -52,7 +52,7 @@ public class SchemaItemController {
 	@PostMapping("/{tUuid}/item")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public SchemaItemPojo createSchemaItem(@PathVariable(value = "tUuid") String tUuid, @RequestBody SchemaItemPojo requestSchemaItemPojo) {
-		return schemaItemService.createSchemaItem(requestSchemaItemPojo, tUuid);
+		return schemaItemService.createSchemaItem(tUuid, requestSchemaItemPojo);
 	}
 
 	@PostMapping("/{tUuid}/item/list")

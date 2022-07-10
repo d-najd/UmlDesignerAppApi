@@ -60,6 +60,8 @@ public class SchemaTableServiceImpl implements SchemaTableService {
 
     @Override
     public List<SchemaTablePojo> getAll() {
+        log.debug("Execute getAll");
+
 		return schemaTableMapper.mapList(schemaTableRepository.findAll(), SchemaTablePojo.class);
     }
 
@@ -69,8 +71,7 @@ public class SchemaTableServiceImpl implements SchemaTableService {
      */
     @Override
 	public SchemaTablePojo createSchemaTable(SchemaTablePojo schemaTablePojo) {
-		log.debug("Execute createTable with parameters {}", schemaTablePojo);
-
+		log.debug("Execute createSchemaTable with parameters {}", schemaTablePojo);
   		SchemaTable transientSchemaTable = schemaTableMapper.dtoToEntity(schemaTablePojo);
         SchemaTable persistedSchemaTable = schemaTableRepository.save(transientSchemaTable);
 
@@ -88,7 +89,7 @@ public class SchemaTableServiceImpl implements SchemaTableService {
 
     @Override
     public SchemaTablePojo updateSchemaTable(String uuid, SchemaTablePojo schemaTablePojo) {
-        log.debug("Execute updateTable with parameters {}", schemaTablePojo);
+        log.debug("Execute updateSchemaTable with parameters {}, {}", uuid, schemaTablePojo);
 		SchemaTable persistedSchemaTable = findByUuid(uuid);
 		schemaTableMapper.mapRequestedFieldForUpdate(persistedSchemaTable, schemaTablePojo);
         
@@ -97,7 +98,8 @@ public class SchemaTableServiceImpl implements SchemaTableService {
 
     @Override
     public void removeSchemaTable(String uuid) {
-	    SchemaTable persistedSchemaTable = findByUuid(uuid);
+        log.debug("Execute removeSchemaTable with parameter {}", uuid);
+        SchemaTable persistedSchemaTable = findByUuid(uuid);
 	    schemaTableRepository.delete(persistedSchemaTable);
     }
 }
