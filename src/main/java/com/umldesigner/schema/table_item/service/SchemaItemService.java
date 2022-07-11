@@ -10,6 +10,7 @@ import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
 
 @Service
 public interface SchemaItemService {
+
     public SchemaItemPojo findById(Integer id);
 
     public SchemaItemPojo getByUuid(String uuid);
@@ -29,4 +30,5 @@ public interface SchemaItemService {
     public SchemaItemPojo updateSchemaItem(String uuid, SchemaItemPojo schemaItemPojo);
 
     public void removeSchemaItem(String uuid);
+
 }

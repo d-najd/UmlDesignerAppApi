@@ -12,9 +12,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SchemaTablePojo extends UmlObjectPojo {
+
     private String title;
-    //Set<SchemaItemPojo> tableItems = new HashSet<>();
+
+    // Set<SchemaItemPojo> tableItems = new HashSet<>();
+
     private List<SchemaItemPojo> items = new ArrayList<>();
 
-    
 }

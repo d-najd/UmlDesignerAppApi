@@ -23,28 +23,30 @@ import lombok.Setter;
 @Entity
 @Table(name = "schema_item")
 public class SchemaItem extends BaseEntity {
-   	private static final long serialVersionUID = 1L;
 
-    //@JsonIgnore
-    //@ManyToMany(mappedBy = "tableItems")
-    //private Set<SchemaTable> boards = new HashSet<>();
-    
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "table_id", referencedColumnName = "id", nullable = false)
-    private SchemaTable table;
+  private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
-    @NonNull
-    @Column(name = "position")
-    private Integer position;
+  // @JsonIgnore
+  // @ManyToMany(mappedBy = "tableItems")
+  // private Set<SchemaTable> boards = new HashSet<>();
 
-    @NonNull
-    @Column(name = "type")
-    private String type;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "table_id", referencedColumnName = "id", nullable = false)
+  private SchemaTable table;
 
-    @NonNull
-    @Column(name = "value")
-    private String value;
+  @JsonIgnore
+  @NonNull
+  @Column(name = "position")
+  private Integer position;
+
+  @NonNull
+  @Column(name = "type")
+  private String type;
+
+  @NonNull
+  @Column(name = "value")
+  private String value;
+
 }

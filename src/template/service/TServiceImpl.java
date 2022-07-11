@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 public class TServiceImpl implements TService {
+
     @Autowired
     TRepository tRepository;
 

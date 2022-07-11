@@ -8,6 +8,7 @@ class UmldesignerApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

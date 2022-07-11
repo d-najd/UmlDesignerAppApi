@@ -9,5 +9,7 @@ import com.umldesigner.schema.template.domain.TItem;
 
 @Repository
 public interface TRepository extends JpaRepository<TItem, Integer> {
+
     public Optional<TItem> findById(Integer id);
+
 }

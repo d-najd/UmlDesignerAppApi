@@ -29,11 +29,12 @@ public class SchemaItemReferenceServiceImpl implements SchemaItemReferenceServic
     @Override
     public SchemaItemReferencePojo findById(BaseMTMIdentity identity) {
         try {
-            SchemaItemReference schemaItemReferenceEntity = schemaItemReferenceRepository.findById(identity).orElseThrow(NotFoundException::new);
-            return schemaItemReferenceMapper.entityToDto(schemaItemReferenceEntity); 
-        } catch (NotFoundException e){
+            SchemaItemReference schemaItemReferenceEntity = schemaItemReferenceRepository.findById(identity)
+                    .orElseThrow(NotFoundException::new);
+            return schemaItemReferenceMapper.entityToDto(schemaItemReferenceEntity);
+        } catch (NotFoundException e) {
             e.printStackTrace();
-        } 
+        }
         return null;
     }
 

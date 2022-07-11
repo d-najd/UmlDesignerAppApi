@@ -10,7 +10,8 @@ import com.umldesigner.schema.table_item.domain.SchemaItem;
 
 @Repository
 public interface SchemaItemRepository extends JpaRepository<SchemaItem, Integer> {
+
     public Optional<SchemaItem> findByUuid(String uuid);
 
-    public List<SchemaItem> findAllByTableUuid(String tUuid); //I am genuinely surprised this works
+    public List<SchemaItem> findAllByTableUuid(String tUuid); // I am genuinely surprised this works
 }

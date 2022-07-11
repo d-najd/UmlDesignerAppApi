@@ -15,10 +15,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class BaseMTMEntity implements Serializable { //NOTE this shouldn't extends BaseMTMIdentity.java
-    private static final long serialVersionUID = 3L; //NOTE this and BaseMTMIdentity are different things so different serialUID's
+// NOTE this shouldn't extends BaseMTMIdentity.java
+public class BaseMTMEntity implements Serializable {
+    // NOTE this and BaseMTMIdentity are different things so different serialUID's
+    private static final long serialVersionUID = 3L;
 
+    // TODO make sure this works (has not been tested)
     @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //TODO make sure this works
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BaseMTMIdentity identity;
+
 }

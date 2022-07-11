@@ -7,5 +7,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SchemaItemReferencePojo extends BaseMTMPojo{
+public class SchemaItemReferencePojo extends BaseMTMPojo {
+
 }

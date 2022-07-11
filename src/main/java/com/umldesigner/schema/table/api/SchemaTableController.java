@@ -21,12 +21,12 @@ import com.umldesigner.schema.table.service.SchemaTableService;
 @RequestMapping("/schema/table")
 public class SchemaTableController {
 
-    @Autowired
-    SchemaTableService schemaTableService;
+	@Autowired
+	SchemaTableService schemaTableService;
 
-	//this should be removed in the future for security reasons
+	// this should be removed in the future for security reasons
 	@GetMapping("/id/{id}")
-	public SchemaTablePojo getById(@PathVariable (value = "id") Integer id){
+	public SchemaTablePojo getById(@PathVariable(value = "id") Integer id) {
 		return schemaTableService.findById(id);
 	}
 
@@ -48,10 +48,11 @@ public class SchemaTableController {
 
 	@PutMapping("/{uuid}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public SchemaTablePojo updateSchemaTable(@PathVariable(value = "uuid") String uuid, @RequestBody SchemaTablePojo requestSchemaTablePojo) {
+	public SchemaTablePojo updateSchemaTable(@PathVariable(value = "uuid") String uuid,
+			@RequestBody SchemaTablePojo requestSchemaTablePojo) {
 		return schemaTableService.updateSchemaTable(uuid, requestSchemaTablePojo);
 	}
-	
+
 	@DeleteMapping("/{uuid}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void removeSchemaTable(@PathVariable(value = "uuid") String uuid) {

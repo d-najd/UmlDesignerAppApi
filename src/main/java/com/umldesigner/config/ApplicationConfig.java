@@ -17,18 +17,23 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @Slf4j
 public class ApplicationConfig {
-	@PostConstruct
-	public void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
-	
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}	
-	
-	@Bean
-	public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-		return builder.createXmlMapper(false).serializationInclusion(Include.NON_NULL).build();
-	}
+
+  @PostConstruct
+  public void init() {
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+  }
+
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
+
+  @Bean
+  public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+    return builder
+        .createXmlMapper(false)
+        .serializationInclusion(Include.NON_NULL)
+        .build();
+  }
+
 }

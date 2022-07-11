@@ -5,5 +5,7 @@ import com.umldesigner.schema.table_item.domain.SchemaItem;
 import com.umldesigner.schema.table_item.dto.SchemaItemPojo;
 
 public interface SchemaItemMapper extends GeneralMapper<SchemaItemPojo, SchemaItem> {
-    public void mapRequestedFieldForUpdate(SchemaItem entity, SchemaItemPojo dto);
+
+  public void mapRequestedFieldForUpdate(SchemaItem entity, SchemaItemPojo dto);
+
 }

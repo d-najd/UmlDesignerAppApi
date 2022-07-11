@@ -17,7 +17,8 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
@@ -25,10 +26,10 @@ public class BaseEntity implements Serializable {
     private Integer id;
 
     @Column(name = "uuid", updatable = false)
-	private String uuid;
+    private String uuid;
 
     @PrePersist
-	public void init() {
-		uuid = UUID.randomUUID().toString();
-	}
+    public void init() {
+        uuid = UUID.randomUUID().toString();
+    }
 }

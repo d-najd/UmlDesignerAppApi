@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "schema_reference") 
+@Table(name = "schema_reference")
 public class SchemaItemReference extends BaseMTMEntity {
     private static final long serialVersionUID = 3L;
 }

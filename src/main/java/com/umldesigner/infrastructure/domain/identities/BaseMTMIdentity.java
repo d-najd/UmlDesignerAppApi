@@ -17,24 +17,29 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 public class BaseMTMIdentity implements Serializable {
-	private static final long serialVersionUID = 2L; //NOTE this and BaseMTMEntity are different things so different serialversionUid's
-	
-	@NonNull
-	@Column(name = "value1")
+
+    // NOTE this and BaseMTMEntity are different things so different
+    // serialversionUid's
+    private static final long serialVersionUID = 2L;
+
+    @NonNull
+    @Column(name = "value1")
     private Integer value1;
-	@NonNull
-	@Column(name = "value2")
+    @NonNull
+    @Column(name = "value2")
     private Integer value2;
 
-	@Override
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         BaseMTMIdentity that = (BaseMTMIdentity) o;
 
-        if (!value1.equals(that.value1)) 
-        	return false;
+        if (!value1.equals(that.value1))
+            return false;
         return value2.equals(that.value2);
     }
 

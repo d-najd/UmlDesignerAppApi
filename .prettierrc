@@ -1,0 +1,19 @@
+{
+  "tabWidth": 4,
+  "useTabs": true,
+  "trailingComma" : "none",
+  "plugins": [
+    "prettier-plugin-java"
+  ],
+  "pluginSearchDirs": [
+    "./node_modules"
+  ],
+  "overrides": [{
+      "files": "**/*.java",
+      "options": {
+            "plugins": [
+                "prettier-plugin-java"
+            ]
+      }
+  }]
+}

@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 public class SchemaTableServiceImpl implements SchemaTableService {
+
     @Autowired
     SchemaTableRepository schemaTableRepository;
 
@@ -33,10 +34,10 @@ public class SchemaTableServiceImpl implements SchemaTableService {
     @Override
     public SchemaTablePojo findById(Integer id) {
         log.debug("Execute findById with parameter {}", id);
-            SchemaTable schemaTableEntity = schemaTableRepository.findById(id).orElseThrow(() -> {
-                log.error("Resource SchemaTable with id {} is not found", id);
-			    return new ResourceNotFoundException("Resource SchemaTable not found");
-            });
+        SchemaTable schemaTableEntity = schemaTableRepository.findById(id).orElseThrow(() -> {
+            log.error("Resource SchemaTable with id {} is not found", id);
+            return new ResourceNotFoundException("Resource SchemaTable not found");
+        });
 
         return schemaTableMapper.entityToDto(schemaTableEntity);
     }
@@ -45,43 +46,47 @@ public class SchemaTableServiceImpl implements SchemaTableService {
     public SchemaTablePojo getByUuid(String uuid) {
         log.debug("Execute getByUuid with parameter {}", uuid);
 
-		return schemaTableMapper.entityToDto(findByUuid(uuid));
+        return schemaTableMapper.entityToDto(findByUuid(uuid));
     }
 
     @Override
     public SchemaTable findByUuid(String uuid) {
-		log.debug("Execute findByUuid with parameter {}", uuid);
-		
+        log.debug("Execute findByUuid with parameter {}", uuid);
+
         return schemaTableRepository.findByUuid(uuid).orElseThrow(() -> {
-			log.error("Error: Resource SchemaTable with uuid {} is not found", uuid);
-			return new ResourceNotFoundException("Resource SchemaTable not found");
-		});
+            log.error("Error: Resource SchemaTable with uuid {} is not found", uuid);
+            return new ResourceNotFoundException("Resource SchemaTable not found");
+        });
     }
 
     @Override
     public List<SchemaTablePojo> getAll() {
         log.debug("Execute getAll");
 
-		return schemaTableMapper.mapList(schemaTableRepository.findAll(), SchemaTablePojo.class);
+        return schemaTableMapper.mapList(schemaTableRepository.findAll(), SchemaTablePojo.class);
     }
 
     /*
-     * creating a table which may include items, note this may cause security problems but I don't know of a better way of doing this atm
-     * @see com.umldesigner.schema.table.service.SchemaTableService#createSchemaTable(com.umldesigner.schema.table.dto.SchemaTablePojo)
+     * creating a table which may include items, note this may cause security
+     * problems but I don't know of a better way of doing this atm
+     * 
+     * @see
+     * com.umldesigner.schema.table.service.SchemaTableService#createSchemaTable(com
+     * .umldesigner.schema.table.dto.SchemaTablePojo)
      */
     @Override
-	public SchemaTablePojo createSchemaTable(SchemaTablePojo schemaTablePojo) {
-		log.debug("Execute createSchemaTable with parameters {}", schemaTablePojo);
-  		SchemaTable transientSchemaTable = schemaTableMapper.dtoToEntity(schemaTablePojo);
+    public SchemaTablePojo createSchemaTable(SchemaTablePojo schemaTablePojo) {
+        log.debug("Execute createSchemaTable with parameters {}", schemaTablePojo);
+        SchemaTable transientSchemaTable = schemaTableMapper.dtoToEntity(schemaTablePojo);
         SchemaTable persistedSchemaTable = schemaTableRepository.save(transientSchemaTable);
 
-        //creating and setting the items to the persisted table
+        // creating and setting the items to the persisted table
         SchemaTablePojo mappedSchemaTable = schemaTableMapper.entityToDto(persistedSchemaTable);
-		mappedSchemaTable.setItems(
-            schemaItemService.createSchemaItemList(persistedSchemaTable.getUuid(), schemaTablePojo.getItems()));
-        
+        mappedSchemaTable.setItems(
+                schemaItemService.createSchemaItemList(persistedSchemaTable.getUuid(), schemaTablePojo.getItems()));
+
         return mappedSchemaTable;
-	}
+    }
 
     /**
      * @apiNote doesn't update the table items just the table itself
@@ -90,16 +95,16 @@ public class SchemaTableServiceImpl implements SchemaTableService {
     @Override
     public SchemaTablePojo updateSchemaTable(String uuid, SchemaTablePojo schemaTablePojo) {
         log.debug("Execute updateSchemaTable with parameters {}, {}", uuid, schemaTablePojo);
-		SchemaTable persistedSchemaTable = findByUuid(uuid);
-		schemaTableMapper.mapRequestedFieldForUpdate(persistedSchemaTable, schemaTablePojo);
-        
-		return schemaTableMapper.entityToDto(schemaTableRepository.saveAndFlush(persistedSchemaTable));
+        SchemaTable persistedSchemaTable = findByUuid(uuid);
+        schemaTableMapper.mapRequestedFieldForUpdate(persistedSchemaTable, schemaTablePojo);
+
+        return schemaTableMapper.entityToDto(schemaTableRepository.saveAndFlush(persistedSchemaTable));
     }
 
     @Override
     public void removeSchemaTable(String uuid) {
         log.debug("Execute removeSchemaTable with parameter {}", uuid);
         SchemaTable persistedSchemaTable = findByUuid(uuid);
-	    schemaTableRepository.delete(persistedSchemaTable);
+        schemaTableRepository.delete(persistedSchemaTable);
     }
 }

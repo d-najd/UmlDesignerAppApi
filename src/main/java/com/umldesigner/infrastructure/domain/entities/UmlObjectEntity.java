@@ -12,10 +12,13 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 public abstract class UmlObjectEntity extends BaseEntity {
+
     @Column(name = "x")
     @NonNull
     private float x;
+
     @Column(name = "y")
     @NonNull
     private float y;
+
 }

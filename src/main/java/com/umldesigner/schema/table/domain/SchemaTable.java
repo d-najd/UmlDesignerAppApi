@@ -23,25 +23,29 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "schema_table")
-public class SchemaTable extends UmlObjectEntity{
+public class SchemaTable extends UmlObjectEntity {
+
     private static final long serialVersionUID = 1L;
-   
-    /* 
-    @ManyToMany
-    @JoinTable(
-            name = "schema_table_items",
-            joinColumns = @JoinColumn(name = "value1"),
-            inverseJoinColumns = @JoinColumn(name = "value2")
-    )
-    Set<SchemaItem> tableItems = new HashSet<>();
-    */
+
+    /*
+     * <pre>
+     * 
+     * @ManyToMany
+     * 
+     * @JoinTable(
+     * name = "schema_table_items",
+     * joinColumns = @JoinColumn(name = "value1"),
+     * inverseJoinColumns = @JoinColumn(name = "value2")
+     * )
+     * Set<SchemaItem> tableItems = new HashSet<>();
+     */
 
     @JsonIgnore
     @OneToMany(mappedBy = "table")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("position ASC")
     private List<SchemaItem> items;
-    
+
     @NonNull
     @Column(name = "title")
     private String title;

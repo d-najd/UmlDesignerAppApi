@@ -16,8 +16,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "TItem")
 public class TItem extends BaseEntity {
-   	private static final long serialVersionUID = 1L;
-    
+
+    private static final long serialVersionUID = 1L;
+
     @NonNull
     @Column(name = "type")
     private String type;

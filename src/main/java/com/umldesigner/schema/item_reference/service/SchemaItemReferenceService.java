@@ -7,5 +7,5 @@ import com.umldesigner.schema.item_reference.dto.SchemaItemReferencePojo;
 
 @Service
 public interface SchemaItemReferenceService {
-   public SchemaItemReferencePojo findById(BaseMTMIdentity identity); 
+   public SchemaItemReferencePojo findById(BaseMTMIdentity identity);
 }

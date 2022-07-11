@@ -33,27 +33,31 @@ public class SchemaTableMapperImpl extends AbstractGeneralMapper implements Sche
     @Override
     public void mapRequestedFieldForUpdate(SchemaTable entity, SchemaTablePojo dto) {
         entity.setTitle(dto.getTitle());
-        //create AbstractUmlMapper and UmlMapper which extends the AbstractGeneralMapper and GeneralMapper but map the x and y coordinates automatically
+        // create AbstractUmlMapper and UmlMapper which extends the
+        // AbstractGeneralMapper and GeneralMapper but map the x and y coordinates
+        // automatically
         entity.setX(dto.getX());
         entity.setY(dto.getY());
 
-        /*  not sure how to do mapping for fields so I will leave it for now
-        entity.setItems(dto.getItems());
+        /*
+         * not sure how to do mapping for fields so I will leave it for now
+         * entity.setItems(dto.getItems());
+         * 
+         * SchemaItem[] schemaItems = (SchemaItem[]) entity.getItems().toArray();
+         * SchemaItemPojo[] schemaItemsPojo = (SchemaItemPojo[])
+         * dto.getItems().toArray();
+         * 
+         * //I am 99% sure there is a better way
+         * for(int i = 0; i < schemaItems.length; i++){
+         * for (int b = 0; b < schemaItemsPojo.length; b++){
+         * if (schemaItems[i].getUuid().equals(schemaItemsPojo[b].getUuid())){
+         * schemaItemMapper.mapRequestedFieldForUpdate(schemaItems[i],
+         * schemaItemsPojo[i]);
+         * break;
+         * }
+         * }
+         * }
+         */
 
-        SchemaItem[] schemaItems = (SchemaItem[]) entity.getItems().toArray();
-        SchemaItemPojo[] schemaItemsPojo = (SchemaItemPojo[]) dto.getItems().toArray();
-
-        //I am 99% sure there is a better way
-        for(int i = 0; i < schemaItems.length; i++){
-            for (int b = 0; b < schemaItemsPojo.length; b++){
-                if (schemaItems[i].getUuid().equals(schemaItemsPojo[b].getUuid())){
-                    schemaItemMapper.mapRequestedFieldForUpdate(schemaItems[i], schemaItemsPojo[i]);
-                    break;
-                }
-            }
-        }
-        */
-
-        
     }
 }
