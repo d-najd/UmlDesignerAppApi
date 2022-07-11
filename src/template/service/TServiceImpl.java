@@ -26,13 +26,11 @@ public class TServiceImpl implements TService {
 
     @Override
     public TPojo findById(Integer id) {
-        try {
-            TItem tItem = tRepository.findById(id).orElseThrow(NotFoundException::new);
-            return tMapper.entityToDto(tItem);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        TItem tItem = tRepository.findById(id).orElseThrow(() -> {
+            log.error("Resource TPojo with id {} is not found", id);
+            return new ResourceNotFoundException("Unable to find Resource TPojo");
+        });
+        return tMapper.entityToDto(tItem);
     }
 
 }

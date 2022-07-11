@@ -3,10 +3,10 @@ package com.umldesigner.schema.item_reference.service.impl;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.domain.identities.BaseMTMIdentity;
+import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
 import com.umldesigner.schema.item_reference.domain.SchemaItemReference;
 import com.umldesigner.schema.item_reference.dto.SchemaItemReferencePojo;
 import com.umldesigner.schema.item_reference.mapper.SchemaItemReferenceMapper;
@@ -28,14 +28,12 @@ public class SchemaItemReferenceServiceImpl implements SchemaItemReferenceServic
 
     @Override
     public SchemaItemReferencePojo findById(BaseMTMIdentity identity) {
-        try {
-            SchemaItemReference schemaItemReferenceEntity = schemaItemReferenceRepository.findById(identity)
-                    .orElseThrow(NotFoundException::new);
-            return schemaItemReferenceMapper.entityToDto(schemaItemReferenceEntity);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        SchemaItemReference schemaItemReferenceEntity = schemaItemReferenceRepository.findById(identity)
+                .orElseThrow(() -> {
+                    log.error("Error: Resource SchemaItemReference with identity {} is not found", identity);
+                    return new ResourceNotFoundException("Resource Schema Item Reference not found");
+                });
+        return schemaItemReferenceMapper.entityToDto(schemaItemReferenceEntity);
     }
 
 }

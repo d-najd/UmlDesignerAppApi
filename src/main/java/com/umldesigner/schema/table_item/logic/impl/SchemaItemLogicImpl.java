@@ -22,6 +22,9 @@ public class SchemaItemLogicImpl implements SchemaItemLogic {
             return 0;
         } else {
             Integer biggestPosition = schemaItemList.get(schemaItemList.size() - 1).getPosition();
+            if (biggestPosition == null) // not sure why but apparently "biggestPosition is NuLl ApP CaNt AdD 1 To NuLl
+                                         // ApP CrAsH so had to do this"
+                return 0;
             return biggestPosition + 1;
         }
 

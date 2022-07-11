@@ -12,7 +12,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.NonNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.umldesigner.infrastructure.domain.entities.UmlObjectEntity;
 import com.umldesigner.schema.table_item.domain.SchemaItem;
 
@@ -40,7 +39,6 @@ public class SchemaTable extends UmlObjectEntity {
      * Set<SchemaItem> tableItems = new HashSet<>();
      */
 
-    @JsonIgnore
     @OneToMany(mappedBy = "table")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("position ASC")

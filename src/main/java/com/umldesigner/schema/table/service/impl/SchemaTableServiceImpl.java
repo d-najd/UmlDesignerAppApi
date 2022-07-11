@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.umldesigner.infrastructure.domain.exceptions.ResourceNotFoundException;
+import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
 import com.umldesigner.schema.table.domain.SchemaTable;
 import com.umldesigner.schema.table.dto.SchemaTablePojo;
 import com.umldesigner.schema.table.mapper.SchemaTableMapper;
