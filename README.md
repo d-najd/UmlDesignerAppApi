@@ -1,16 +1,13 @@
 # Uml Designer Api
 
-![test](https://img.shields.io/snyk/vulnerabilities/github/d-najd/UmlDesignerAppApi)
-![re](https://img.shields.io/github/repo-size/d-najd/UmlDesignerAppApi)
+![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/d-najd/UmlDesignerAppApi)
+![reposize](https://img.shields.io/github/repo-size/d-najd/UmlDesignerAppApi)
 
 # Getting Started
 
-
 Api for an app used for generating uml diagrams in multiple different ways
 
-
-
-follow the instructions below to get a copy of the project running on your local machine
+Follow the instructions below to get a copy of the project running on your local machine
 
 ## Prerequisites
 
@@ -30,8 +27,8 @@ git clone https://github.com/popovski/iw-library-spring-boot
 
 ## Build and Start the project
 
-* go to root directory of the project
-* mvn clean package
+* Go to root directory of the project
+* mvn clean package 
 * java -jar .\target\umldesigner-0.0.1-SNAPSHOT.jar
 
 ## Docker Setup (WORK IN PROGESS)
@@ -45,8 +42,8 @@ git clone https://github.com/popovski/iw-library-spring-boot
    - Ability to generate uml diagrams from mysql code
 
 # Demo
- file called postman.json contains all the requests available, good luck!
+ File called postman.json contains all the requests available, good luck!
 
 # Downloads (WORK IN PROGRESS)
 # Related Links
-the app which the api is built for https://github.com/d-najd/UmlDesigner
+The app which the api is built for https://github.com/d-najd/UmlDesigner
