@@ -43,6 +43,10 @@ git clone https://github.com/popovski/iw-library-spring-boot
    - Ability to generate uml diagrams from json files
  - Mysql support (work in progress)
    - Ability to generate uml diagrams from mysql code
+
+# Demo
+ file called postman.json contains all the requests available, good luck!
+
 # Downloads (WORK IN PROGRESS)
 # Related Links
 the app which the api is built for https://github.com/d-najd/UmlDesigner
