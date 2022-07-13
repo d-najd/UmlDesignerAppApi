@@ -1,0 +1,29 @@
+Table s_item {
+  id int [pk, increment]
+  position int
+  type varchar(100)
+  value varchar(100)
+}
+
+Table s_pk {
+  value1 int [pk]
+  value2 int [pk]
+}
+
+Ref: s_pk.value1 > s_item.id
+Ref: s_pk.value2 > s_item.id
+
+Table s_table{
+  id int [pk, increment]
+  title varchar(100)
+  x float
+  y float
+}
+
+Table s_table_items{
+  value1 int [pk]
+  value2 int [pk]
+}
+
+Ref: s_table_items.value1 > s_table.id
+Ref: s_table_items.value2 > s_item.id
