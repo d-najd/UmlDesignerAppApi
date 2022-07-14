@@ -23,10 +23,10 @@ public class SFK extends BaseMEntity {
 
     @NonNull
     @Column(name = "onUpdate")
-    private Boolean onUpdate;
+    private String onUpdate;
 
     @NonNull
     @Column(name = "onDelete")
-    private Boolean onDelete;
+    private String onDelete;
 
 }

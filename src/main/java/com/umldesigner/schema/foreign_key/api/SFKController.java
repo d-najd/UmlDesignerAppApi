@@ -27,16 +27,19 @@ public class SFKController {
      * @param sUuid Uuid of the second item
      * @return Foreign Key Pojo
      */
-    @GetMapping("/{firstUuId}/{secondUuId}")
+    @GetMapping("/{fUuId}/{sUuId}")
     public SFKPojo getByIdentity(
-            @RequestParam(value = "firstUuid") String fUuid,
-            @RequestParam(value = "secondUuid") String sUuid) {
+            @RequestParam(value = "fUuid") String fUuid,
+            @RequestParam(value = "sUuid") String sUuid) {
         return sfkService.findById(fUuid, sUuid);
     }
 
-    @PostMapping
+    @PostMapping("/{fUuid}/{sUuid}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public SFKPojo createSchemaForeignKey(@RequestBody SFKPojo requestsfkPojo) {
+    public SFKPojo createSchemaForeignKey(
+            @RequestBody SFKPojo requestsfkPojo,
+            @RequestParam(value = "fUuid") String fUuid,
+            @RequestParam(value = "sUUid") String sUuid) {
         throw new UnsupportedOperationException("Add da method");
     }
 }

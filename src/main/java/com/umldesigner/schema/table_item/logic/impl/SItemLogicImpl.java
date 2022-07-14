@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class SItemLogicImpl implements SItemLogic {
 
-    // TODO this doesn't work properly while creating a table with multiple items
-
     @Override
     public Integer getNextPosition(List<SItem> sItemList) {
         log.debug("Execute setNextPosition with parameters {}", sItemList);
@@ -22,9 +20,9 @@ public class SItemLogicImpl implements SItemLogic {
             return 0;
         } else {
             Integer biggestPosition = sItemList.get(sItemList.size() - 1).getPosition();
-            if (biggestPosition == null) // not sure why but apparently "biggestPosition is NuLl ApP CaNt AdD 1 To NuLl
-                                         // ApP CrAsH so had to do this"
+            if (biggestPosition == null) { // if I leave it as null it will crash since apparantly *can't add x to null*
                 return 0;
+            }
             return biggestPosition + 1;
         }
 

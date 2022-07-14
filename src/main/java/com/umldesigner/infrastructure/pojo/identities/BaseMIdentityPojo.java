@@ -2,11 +2,13 @@ package com.umldesigner.infrastructure.pojo.identities;
 
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class BaseMIdentityPojo {
 
     private Integer firstId;
