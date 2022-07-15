@@ -2,8 +2,11 @@ package com.umldesigner.schema.table_item.logic;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.umldesigner.schema.table_item.domain.SItem;
 
+@Component
 public interface SItemLogic {
 
     /**

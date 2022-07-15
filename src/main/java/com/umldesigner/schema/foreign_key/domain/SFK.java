@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.NonNull;
 
 import com.umldesigner.infrastructure.domain.entities.BaseMEntity;
@@ -22,11 +24,13 @@ public class SFK extends BaseMEntity {
     private static final long serialVersionUID = 3L;
 
     @NonNull
-    @Column(name = "onUpdate")
-    private String onUpdate;
+    @Column(name = "onUpdate", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private String onUpdate = "ca";
 
     @NonNull
-    @Column(name = "onDelete")
-    private String onDelete;
+    @Column(name = "onDelete", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private String onDelete = "ca";
 
 }

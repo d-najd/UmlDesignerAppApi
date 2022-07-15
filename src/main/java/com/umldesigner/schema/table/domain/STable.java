@@ -23,7 +23,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "s_table")
 public class STable extends UmlObjectEntity {
-
     private static final long serialVersionUID = 1L;
 
     /*

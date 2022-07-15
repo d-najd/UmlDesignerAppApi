@@ -1,15 +1,25 @@
 package com.umldesigner.schema.table.mapper.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.mapper.STableMapper;
+import com.umldesigner.schema.table_item.domain.SItem;
+import com.umldesigner.schema.table_item.dto.SItemPojo;
+import com.umldesigner.schema.table_item.mapper.SItemMapper;
 
 @Component
 public class STableMapperImpl extends AbstractGeneralMapper implements STableMapper {
+
+    @Autowired
+    SItemMapper sItemMapper;
 
     public STableMapperImpl(ModelMapper modelMapper) {
         super(modelMapper);
@@ -34,25 +44,13 @@ public class STableMapperImpl extends AbstractGeneralMapper implements STableMap
         entity.setX(dto.getX());
         entity.setY(dto.getY());
 
-        /*
-         * not sure how to do mapping for fields so I will leave it for now
-         * entity.setItems(dto.getItems());
-         * 
-         * SchemaItem[] schemaItems = (SchemaItem[]) entity.getItems().toArray();
-         * SchemaItemPojo[] schemaItemsPojo = (SchemaItemPojo[])
-         * dto.getItems().toArray();
-         * 
-         * //I am 99% sure there is a better way
-         * for(int i = 0; i < schemaItems.length; i++){
-         * for (int b = 0; b < schemaItemsPojo.length; b++){
-         * if (schemaItems[i].getUuid().equals(schemaItemsPojo[b].getUuid())){
-         * sItemMapper.mapRequestedFieldForUpdate(schemaItems[i],
-         * schemaItemsPojo[i]);
-         * break;
-         * }
-         * }
-         * }
-         */
-
+        /* 
+        List<SItemPojo> e = dto.getItems();
+        List<SItem> te = new ArrayList<>();
+        for (SItemPojo pojo : e) {
+            te.add(sItemMapper.dtoToEntity(pojo));
+        }
+        entity.setItems(te);
+        */
     }
 }

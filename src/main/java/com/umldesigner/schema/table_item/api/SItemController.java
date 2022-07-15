@@ -25,13 +25,13 @@ public class SItemController {
 	@Autowired
 	SItemService sItemService;
 
-	@Autowired
-	SItemRepository sItemRepository;
+	// @Autowired
+	// SItemRepository sItemRepository;
 
 	// should be removed in future for security reasons
 	@GetMapping("/item/id/{id}")
 	public SItemPojo getById(@PathVariable(value = "id") Integer id) {
-		return sItemService.findById(id);
+		return sItemService.getById(id);
 	}
 
 	@GetMapping("/item/{uuid}")

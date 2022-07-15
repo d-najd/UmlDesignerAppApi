@@ -19,5 +19,5 @@ public class SItemPojo extends BasePojo {
 
     private STablePojo table;
 
-    private Boolean isPrimaryKey;
+    private Boolean isPrimaryKey = false;
 }

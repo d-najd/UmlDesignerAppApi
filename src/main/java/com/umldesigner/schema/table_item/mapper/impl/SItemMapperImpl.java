@@ -54,4 +54,6 @@ public class SItemMapperImpl extends AbstractGeneralMapper implements SItemMappe
     entity.setValue(dto.getValue());
     entity.setIsPrimaryKey(dto.getIsPrimaryKey());
   }
+
+   
 }

@@ -20,44 +20,63 @@ public class SFKFascadeImpl implements SFKFascade {
 
     @Override
     public boolean isValid(String fUuid, String sUuid, SFKPojo pojo) {
-        // TODO Auto-generated method stub
-        return false;
+        log.debug("Execute isValid with parameters {}, {}, {}", fUuid, sUuid, pojo);
+
+        if (sameTableFKCheck(fUuid, sUuid)) {
+            log.error("Foreign key links to the same table with parameters {}. {}. {}", fUuid, sUuid, pojo);
+            throw new IllegalArgumentException("Foreign key links to the same table");
+        }
+
+        if (!validArgumentsCheck(pojo)) {
+            log.error("Invalid Arguemnt Entered for OnDelete or OnUpdate with parameters {}", pojo);
+            throw new IllegalArgumentException(
+                    "Invalid Argument entered for OnDelete or OnUpdate, available arguments are: No Action, REstrict, Cascade, Set Null, Set Default");
+        }
+
+        if (!fkIdentityMatch(fUuid, sUuid, pojo)) {
+            log.error(
+                    "Identity located in the {} and identity created using {}, {} don't match, create a identity using fUuid and sUuid and set it",
+                    pojo, fUuid, sUuid);
+            throw new InternalError("Misconfiguration on the server side");
+        }
+
+        return true;
     }
 
-    // TODO test this
     @Override
     public boolean sameTableFKCheck(String fUuid, String sUuid) {
+        log.debug("Execute sameTableFKCheck with parameters {}, {}", fUuid, sUuid);
         SItem firstItem = sItemService.findByUuid(fUuid);
         SItem secondItem = sItemService.findByUuid(sUuid);
 
-        // prettier-ignore
-
         return firstItem.getTable().equals(secondItem.getTable());
-        /*
-         * why prettier
-         * 
-         * if (firstItem.getTable().equals(secondItem.getTable())) {
-         * log.debug(
-         * "Error: client tried to create Schema Foreign Key between items from the same table with parameters {}, {}"
-         * ,
-         * fUuid, sUuid);
-         * throw new
-         * IllegalStateException("Can't create Foreign key between items from the same table"
-         * );
-         * }
-         * 
-         */
     }
 
     @Override
     public boolean validArgumentsCheck(SFKPojo pojo) {
-        
-        return false;
+        log.debug("Execute validArguemntsCheck with parameters {}", pojo);
+        String[] arguments = { pojo.getOnDelete(), pojo.getOnUpdate() };
+
+        for (String argument : arguments) {
+            switch (argument) {
+                case "na": // no action
+                case "re": // restrict
+                case "ca": // cascade
+                case "sn": // set null
+                case "sd": // set default
+                    break;
+                default: // invalid argument
+                    return false;
+            }
+        }
+
+        return true;
     }
 
-    // TODO test this
     @Override
     public boolean fkIdentityMatch(String fUuid, String sUuid, SFKPojo pojo) {
+        log.debug("Execute fkIdentityMatch with parameters {}, {}. {}", fUuid, sUuid, pojo);
+
         SItem fItem = sItemService.findByUuid(fUuid);
         SItem sItem = sItemService.findByUuid(sUuid);
 

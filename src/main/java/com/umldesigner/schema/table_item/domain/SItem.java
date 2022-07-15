@@ -33,12 +33,13 @@ public class SItem extends BaseEntity {
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
+  @NonNull
   @JoinColumn(name = "tableId", referencedColumnName = "id", nullable = false)
   private STable table;
 
   @JsonIgnore
   @NonNull
-  @Column(name = "position")
+  @Column(name = "position", insertable = false)
   private Integer position;
 
   @NonNull
@@ -51,6 +52,6 @@ public class SItem extends BaseEntity {
 
   @Column(name = "isPrimaryKey")
   @NonNull
-  private Boolean isPrimaryKey;
+  private Boolean isPrimaryKey = false;
 
 }

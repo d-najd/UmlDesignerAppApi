@@ -1,5 +1,7 @@
 package com.umldesigner.schema.foreign_key.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +36,17 @@ public class SFKController {
         return sfkService.findById(fUuid, sUuid);
     }
 
+    @GetMapping
+    public List<SFKPojo> getAll(){
+        return sfkService.findAll();
+    }
+
     @PostMapping("/{fUuid}/{sUuid}")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SFKPojo createSchemaForeignKey(
-            @RequestBody SFKPojo requestsfkPojo,
+            @RequestBody SFKPojo requestSFKPojo,
             @RequestParam(value = "fUuid") String fUuid,
             @RequestParam(value = "sUUid") String sUuid) {
-        throw new UnsupportedOperationException("Add da method");
+        return sfkService.createForeignKey(fUuid, sUuid, requestSFKPojo);
     }
 }

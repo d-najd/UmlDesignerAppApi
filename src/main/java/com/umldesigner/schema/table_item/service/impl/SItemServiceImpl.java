@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
@@ -36,24 +37,17 @@ public class SItemServiceImpl implements SItemService {
     SItemLogic sItemLogic;
 
     @Autowired
+    @Lazy // TODO fix the ******* circular reference,
     STableService sTableService;
 
     @Override
-    public SItemPojo findById(Integer id) {
-        log.debug("Execute findById with parameter {}", id);
-        SItem schemaItemEntity = sItemRepository.findById(id).orElseThrow(() -> {
-            log.error("Resource SchemaItem with id {} is not found", id);
-            return new ResourceNotFoundException("Resource SchemaItem not found");
+    public SItem findByTableUuidAndUuid(String uuid, String tUuid) {
+        log.debug("Execute findByTableUuidAndUuid");
+
+        return sItemRepository.findByTableUuidAndUuid(tUuid, uuid).orElseThrow(() -> {
+            log.error("Resource Schema Item with uuid {} and table uuid {} not found", uuid, tUuid);
+            return new ResourceNotFoundException("Resource Schema Item Not Found");
         });
-
-        return sItemMapper.entityToDto(schemaItemEntity);
-    }
-
-    @Override
-    public SItemPojo getByUuid(String uuid) {
-        log.debug("Execute getByUuid with parameter {}", uuid);
-
-        return sItemMapper.entityToDto(findByUuid(uuid));
     }
 
     @Override
@@ -64,6 +58,24 @@ public class SItemServiceImpl implements SItemService {
             log.error("Error: Resource SchemaItem with uuid {} is not found", uuid);
             return new ResourceNotFoundException("Resource SchemaItem not found");
         });
+    }
+
+    @Override
+    public SItemPojo getById(Integer id) {
+        log.debug("Execute findById with parameter {}", id);
+        SItem sItemEntity = sItemRepository.findById(id).orElseThrow(() -> {
+            log.error("Resource SchemaItem with id {} is not found", id);
+            return new ResourceNotFoundException("Resource SchemaItem not found");
+        });
+
+        return sItemMapper.entityToDto(sItemEntity);
+    }
+
+    @Override
+    public SItemPojo getByUuid(String uuid) {
+        log.debug("Execute getByUuid with parameter {}", uuid);
+
+        return sItemMapper.entityToDto(findByUuid(uuid));
     }
 
     @Override
@@ -87,6 +99,7 @@ public class SItemServiceImpl implements SItemService {
 
     @Override
     public SItemPojo createSchemaItem(String tUuid, SItemPojo sItemPojo, Integer position) {
+
         log.debug("Execute createSchemaItem parameters {}, {}", tUuid, sItemPojo);
         STable sTable = sTableService.findByUuid(tUuid);
         SItem transientSchemaItem = sItemMapper.dtoToEntity(sItemPojo);
@@ -108,7 +121,8 @@ public class SItemServiceImpl implements SItemService {
         Integer curBiggestPos = sItemLogic.getNextPosition(sTable.getItems());
         List<SItemPojo> returnList = new ArrayList<>();
         for (Integer i = 0; i < sItemPojoList.size(); i++) {
-            returnList.add(createSchemaItem(tUuid, sItemPojoList.get(i), i + curBiggestPos));
+            returnList.add(createSchemaItem(tUuid, sItemPojoList.get(i), i +
+                    curBiggestPos));
         }
 
         return returnList;
@@ -144,15 +158,8 @@ public class SItemServiceImpl implements SItemService {
         log.debug("Execute swapSchemaItems with parameters {}, {}, {}", tUuid, fUuid, sUuid);
 
         // getting items
-        SItem fItem = sItemRepository.findByTableUuidAndUuid(tUuid, fUuid).orElseThrow(() -> {
-            log.error("Error: Resource Schema Item with uuid {} and Table uuid {} not found", fUuid, tUuid);
-            return new ResourceNotFoundException("Unable to find Resource Schema Item");
-        });
-
-        SItem sItem = sItemRepository.findByTableUuidAndUuid(tUuid, sUuid).orElseThrow(() -> {
-            log.error("Error: Resource Schema Item with uuid {} and Table uuid {} not found", sUuid, tUuid);
-            return new ResourceNotFoundException("Unable to find Resource Schema Item");
-        });
+        SItem fItem = findByTableUuidAndUuid(tUuid, fUuid);
+        SItem sItem = findByTableUuidAndUuid(tUuid, sUuid);
 
         // swaping the positions
         int sItemPos = sItem.getPosition();

@@ -12,11 +12,13 @@ import com.umldesigner.schema.table_item.dto.SItemPojo;
 @Service
 public interface SItemService {
 
-    public SItemPojo findById(Integer id);
-
-    public SItemPojo getByUuid(String uuid);
+    public SItem findByTableUuidAndUuid(String uuid, String tUuid);
 
     public SItem findByUuid(String uuid);
+
+    public SItemPojo getById(Integer id);
+    
+    public SItemPojo getByUuid(String uuid);
 
     public List<SItemPojo> getAll();
 
@@ -30,7 +32,7 @@ public interface SItemService {
     /**
      * creates list of schemaItems to a given table
      * 
-     * @param tUuid              uuid of the table where the items will be located
+     * @param tUuid      uuid of the table where the items will be located
      * @param sItemPojos pojo list of the list of items we want to create
      * @return the created list
      */

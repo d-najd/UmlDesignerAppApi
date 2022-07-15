@@ -1,12 +1,17 @@
 package com.umldesigner.schema.foreign_key.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 
 @Service
 public interface SFKService {
+
    public SFKPojo findById(String fUuid, String sUuid);
+
+   public List<SFKPojo> findAll();
 
    /**
     * creates foreign key between s_item values

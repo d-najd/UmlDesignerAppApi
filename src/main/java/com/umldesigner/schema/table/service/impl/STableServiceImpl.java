@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
@@ -29,6 +30,7 @@ public class STableServiceImpl implements STableService {
     STableMapper sTableMapper;
 
     @Autowired
+    @Lazy // TODO fix the ******* circular reference
     SItemService sItemService;
 
     @Override
@@ -78,12 +80,13 @@ public class STableServiceImpl implements STableService {
     public STablePojo createSchemaTable(STablePojo sTablePojo) {
         log.debug("Execute createSchemaTable with parameters {}", sTablePojo);
         STable transientSTable = sTableMapper.dtoToEntity(sTablePojo);
-        STable persistentSTable = sTableRepository.save(transientSTable);
+        STable persistentSTable = sTableRepository.saveAndFlush(transientSTable);
 
         // creating and setting the items to the persisted table
         STablePojo mappedSchemaTable = sTableMapper.entityToDto(persistentSTable);
-        mappedSchemaTable.setItems(
-                sItemService.createSchemaItemList(persistentSTable.getUuid(), sTablePojo.getItems()));
+
+        mappedSchemaTable
+                .setItems(sItemService.createSchemaItemList(persistentSTable.getUuid(), sTablePojo.getItems()));
 
         return mappedSchemaTable;
     }
