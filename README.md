@@ -19,7 +19,7 @@ Follow the instructions below to get a copy of the project running on your local
 
 * clone the repository using [Git](https://git-scm.com/downloads)
 ```Git
-git clone https://github.com/popovski/iw-library-spring-boot
+git clone https://github.com/d-najd/UmlDesignerAppApi
 ```
 * Set datasource url of your MYSQL DB application.properties -> spring.datasource.url
 * Set mysql user value into application.properties -> spring.datasource.username
