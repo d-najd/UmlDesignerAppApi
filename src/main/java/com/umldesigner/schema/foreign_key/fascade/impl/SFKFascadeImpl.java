@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SFKFascadeImpl implements SFKFascade {
 
     @Autowired
-    SItemService sItemService;
+    SItemService sItemService; // TODO find a way to get rid of this
 
     @Override
     public boolean isValid(String fUuid, String sUuid, SFKPojo pojo) {
@@ -77,9 +77,6 @@ public class SFKFascadeImpl implements SFKFascade {
     public boolean fkIdentityMatch(String fUuid, String sUuid, SFKPojo pojo) {
         log.debug("Execute fkIdentityMatch with parameters {}, {}. {}", fUuid, sUuid, pojo);
 
-        SItem fItem = sItemService.findByUuid(fUuid);
-        SItem sItem = sItemService.findByUuid(sUuid);
-
-        return pojo.getIdentity().equals(new BaseMIdentityPojo(fItem.getId(), sItem.getId()));
+        return pojo.getIdentity().equals(new BaseMIdentityPojo(fUuid, sUuid));
     }
 }

@@ -2,6 +2,7 @@ package com.umldesigner.schema.table.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -38,7 +39,7 @@ public class STable extends UmlObjectEntity {
      * Set<SchemaItem> tableItems = new HashSet<>();
      */
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("position ASC")
     private List<SItem> items;

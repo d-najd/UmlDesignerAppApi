@@ -4,15 +4,17 @@ import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BaseMIdentityPojo {
 
-    private Integer firstId;
-    private Integer secondId;
+    private String firstUuid;
+    private String secondUuid;
 
     @Override
     public boolean equals(Object o) {
@@ -23,13 +25,13 @@ public class BaseMIdentityPojo {
 
         BaseMIdentityPojo that = (BaseMIdentityPojo) o;
 
-        if (!firstId.equals(that.firstId))
+        if (!firstUuid.equals(that.firstUuid))
             return false;
-        return secondId.equals(that.secondId);
+        return secondUuid.equals(that.secondUuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstId, secondId);
+        return Objects.hash(firstUuid, secondUuid);
     }
 }

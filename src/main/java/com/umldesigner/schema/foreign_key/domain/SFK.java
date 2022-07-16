@@ -24,12 +24,12 @@ public class SFK extends BaseMEntity {
     private static final long serialVersionUID = 3L;
 
     @NonNull
-    @Column(name = "onUpdate", updatable = false)
+    @Column(name = "onUpdate", updatable = false, length = 2)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private String onUpdate = "ca";
 
     @NonNull
-    @Column(name = "onDelete", updatable = false)
+    @Column(name = "onDelete", updatable = false, length = 2)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private String onDelete = "ca";
 

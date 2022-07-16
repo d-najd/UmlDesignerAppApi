@@ -31,11 +31,14 @@ public class SItem extends BaseEntity {
   // private Set<SchemaTable> boards = new HashSet<>();
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(targetEntity = STable.class, fetch = FetchType.LAZY, optional = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @NonNull
-  @JoinColumn(name = "tableId", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "tableUuid", referencedColumnName = "uuid", nullable = false, updatable = false)
   private STable table;
+
+  @Column(name = "tableUuid", updatable = false, insertable = false)
+  private String tableUuid_;
 
   @JsonIgnore
   @NonNull

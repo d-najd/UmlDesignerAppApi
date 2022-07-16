@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 @MappedSuperclass
 @AllArgsConstructor
+@NoArgsConstructor
 public class BaseMIdentity implements Serializable {
 
     // NOTE this and BaseMTMEntity are different things so different
@@ -25,11 +27,11 @@ public class BaseMIdentity implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @NonNull
-    @Column(name = "firstId")
-    private Integer firstId;
+    @Column(name = "firstUuid")
+    private String firstUuid;
     @NonNull
-    @Column(name = "secondId")
-    private Integer secondId;
+    @Column(name = "secondUuid")
+    private String secondUuid;
 
     @Override
     public boolean equals(Object o) {
@@ -40,13 +42,13 @@ public class BaseMIdentity implements Serializable {
 
         BaseMIdentity that = (BaseMIdentity) o;
 
-        if (!firstId.equals(that.secondId))
+        if (!firstUuid.equals(that.secondUuid))
             return false;
-        return firstId.equals(that.secondId);
+        return firstUuid.equals(that.secondUuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstId, secondId);
+        return Objects.hash(firstUuid, secondUuid);
     }
 }

@@ -18,6 +18,14 @@ public interface STableService {
 
     public List<STablePojo> getAll();
 
+    /**
+     * creating a table which can also include items
+     * 
+     * @apiNote the implementation can use "more elegant" way in the future
+     * @see
+     *      com.umldesigner.schema.table.service.SchemaTableService#createSchemaTable(com
+     *      .umldesigner.schema.table.dto.SchemaTablePojo)
+     */
     public STablePojo createSchemaTable(STablePojo sTablePojo);
 
     public STablePojo updateSchemaTable(String uuid, STablePojo sTablePojo);

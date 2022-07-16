@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
@@ -36,8 +35,8 @@ public class SItemServiceImpl implements SItemService {
     @Autowired
     SItemLogic sItemLogic;
 
-    @Autowired
-    @Lazy // TODO fix the ******* circular reference,
+    @Autowired // TODO get rid of the dependency
+               // https://stackoverflow.com/questions/27930449/jpa-many-to-one-relation-need-to-save-only-id
     STableService sTableService;
 
     @Override
@@ -101,13 +100,18 @@ public class SItemServiceImpl implements SItemService {
     public SItemPojo createSchemaItem(String tUuid, SItemPojo sItemPojo, Integer position) {
 
         log.debug("Execute createSchemaItem parameters {}, {}", tUuid, sItemPojo);
-        STable sTable = sTableService.findByUuid(tUuid);
         SItem transientSchemaItem = sItemMapper.dtoToEntity(sItemPojo);
+        STable sTable = sTableService.findByUuid(tUuid);
+
         transientSchemaItem.setTable(sTable);
+
+        // transientSchemaItem.setTableUuid_(tUuid);
+
         // sets the position to a given position if not null if not uses the method
         // given below
         transientSchemaItem
                 .setPosition(position != null ? position : sItemLogic.getNextPosition(sTable.getItems()));
+        log.debug("test");
         SItem persistedSItem = sItemRepository.save(transientSchemaItem);
 
         return sItemMapper.entityToDto(persistedSItem);
@@ -126,6 +130,7 @@ public class SItemServiceImpl implements SItemService {
         }
 
         return returnList;
+
     }
 
     @Override

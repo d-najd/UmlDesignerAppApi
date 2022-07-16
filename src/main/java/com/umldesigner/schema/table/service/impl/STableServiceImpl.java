@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
@@ -14,7 +13,7 @@ import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.mapper.STableMapper;
 import com.umldesigner.schema.table.repository.STableRepository;
 import com.umldesigner.schema.table.service.STableService;
-import com.umldesigner.schema.table_item.service.SItemService;
+import com.umldesigner.schema.table_item.domain.SItem;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,10 +27,6 @@ public class STableServiceImpl implements STableService {
 
     @Autowired
     STableMapper sTableMapper;
-
-    @Autowired
-    @Lazy // TODO fix the ******* circular reference
-    SItemService sItemService;
 
     @Override
     public STablePojo findById(Integer id) {
@@ -68,27 +63,27 @@ public class STableServiceImpl implements STableService {
         return sTableMapper.mapList(sTableRepository.findAll(), STablePojo.class);
     }
 
-    /*
-     * creating a table which may include items, note this may cause security
-     * problems but I don't know of a better way of doing this atm
-     * 
-     * @see
-     * com.umldesigner.schema.table.service.SchemaTableService#createSchemaTable(com
-     * .umldesigner.schema.table.dto.SchemaTablePojo)
-     */
     @Override
     public STablePojo createSchemaTable(STablePojo sTablePojo) {
         log.debug("Execute createSchemaTable with parameters {}", sTablePojo);
         STable transientSTable = sTableMapper.dtoToEntity(sTablePojo);
-        STable persistentSTable = sTableRepository.saveAndFlush(transientSTable);
 
-        // creating and setting the items to the persisted table
-        STablePojo mappedSchemaTable = sTableMapper.entityToDto(persistentSTable);
+        // saving the table without the items
+        List<SItem> b = transientSTable.getItems();
+        transientSTable.setItems(null);
+        STable persistentSTable = sTableRepository.save(transientSTable);
 
-        mappedSchemaTable
-                .setItems(sItemService.createSchemaItemList(persistentSTable.getUuid(), sTablePojo.getItems()));
+        // setting the table to the items since they need it to be created and saving
+        // them both
+        // NOTE this is probably a terrible way of doing things need to find "more
+        // elegant" way later
+        for (SItem item : b) {
+            item.setTable(persistentSTable);
+        }
+        persistentSTable.setItems(b);
+        persistentSTable = sTableRepository.save(transientSTable);
 
-        return mappedSchemaTable;
+        return sTableMapper.entityToDto(persistentSTable);
     }
 
     /**

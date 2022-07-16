@@ -16,7 +16,7 @@ import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.service.SFKService;
 
 @RestController
-@RequestMapping("/s/item/foreignKey/")
+@RequestMapping("/s/item/foreignKey")
 public class SFKController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class SFKController {
      * @param sUuid Uuid of the second item
      * @return Foreign Key Pojo
      */
-    @GetMapping("/{fUuId}/{sUuId}")
+    @GetMapping("/{fUuid}/{sUuid}")
     public SFKPojo getByIdentity(
             @RequestParam(value = "fUuid") String fUuid,
             @RequestParam(value = "sUuid") String sUuid) {
@@ -37,16 +37,16 @@ public class SFKController {
     }
 
     @GetMapping
-    public List<SFKPojo> getAll(){
+    public List<SFKPojo> getAll() {
         return sfkService.findAll();
     }
 
     @PostMapping("/{fUuid}/{sUuid}")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SFKPojo createSchemaForeignKey(
-            @RequestBody SFKPojo requestSFKPojo,
+            @RequestBody SFKPojo requestSfkPojo,
             @RequestParam(value = "fUuid") String fUuid,
-            @RequestParam(value = "sUUid") String sUuid) {
-        return sfkService.createForeignKey(fUuid, sUuid, requestSFKPojo);
+            @RequestParam(value = "sUuid") String sUuid) {
+        return sfkService.createForeignKey(fUuid, sUuid, requestSfkPojo);
     }
 }

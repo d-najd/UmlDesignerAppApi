@@ -15,9 +15,12 @@ public class SItemPojo extends BasePojo {
 
     private String type;
 
+    private String tableUuid_;
+
     private String value;
 
     private STablePojo table;
 
     private Boolean isPrimaryKey = false;
+
 }
