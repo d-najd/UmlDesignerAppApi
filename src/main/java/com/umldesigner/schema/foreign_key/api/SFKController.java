@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.service.SFKService;
 
 @RestController
-@RequestMapping("/s/item/foreignKey")
+@RequestMapping(Endpoints.ITEM_FK)
 public class SFKController {
 
     @Autowired

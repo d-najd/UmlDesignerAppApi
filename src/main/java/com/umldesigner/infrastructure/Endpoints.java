@@ -22,4 +22,6 @@ public class Endpoints {
      * Item endpoint which contains {@value #SCHEMA} before it
      */
     public static final String ITEM = SCHEMA + ITEM_RAW;
+
+    public static final String ITEM_FK = ITEM + "/foreignKey";
 }
