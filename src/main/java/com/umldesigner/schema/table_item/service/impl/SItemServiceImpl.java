@@ -40,7 +40,7 @@ public class SItemServiceImpl implements SItemService {
     STableService sTableService;
 
     @Override
-    public SItem findByTableUuidAndUuid(String uuid, String tUuid) {
+    public SItem findByTableUuidAndUuid(String tUuid, String uuid) {
         log.debug("Execute findByTableUuidAndUuid");
 
         return sItemRepository.findByTableUuidAndUuid(tUuid, uuid).orElseThrow(() -> {

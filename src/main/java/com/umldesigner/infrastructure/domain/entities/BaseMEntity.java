@@ -20,7 +20,6 @@ public class BaseMEntity implements Serializable {
     // NOTE this and BaseMTMIdentity are different things so different serialUID's
     private static final long serialVersionUID = 3L;
 
-    // TODO make sure this works (has not been tested)
     @EmbeddedId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BaseMIdentity identity;

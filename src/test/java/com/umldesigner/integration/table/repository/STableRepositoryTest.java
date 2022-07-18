@@ -13,8 +13,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,9 +25,12 @@ import com.umldesigner.schema.table.repository.STableRepository;
 import com.umldesigner.schema.table_item.domain.SItem;
 import com.umldesigner.utils.table.STableTestUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
 @Transactional
 @RunWith(SpringRunner.class)
+@Slf4j
 public class STableRepositoryTest {
     @Autowired
     private STableRepository sTableRepository;
@@ -59,6 +62,9 @@ public class STableRepositoryTest {
         STable persistedMock = persistedOptionalMock.get();
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
+        assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
+        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
+        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());
@@ -78,6 +84,9 @@ public class STableRepositoryTest {
         STable persistedMock = persistedOptionalMock.get();
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
+        assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
+        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
+        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());
@@ -89,6 +98,7 @@ public class STableRepositoryTest {
         STable mockForUpdate = persistedMock;
         List<SItem> itemsForUpdate = persistedMock.getItems();
         itemsForUpdate.get(0).setType("Updated Mock Type");
+        itemsForUpdate.get(0).setPosition(10000);
         itemsForUpdate.add(new SItem());
 
         mockForUpdate.setItems(itemsForUpdate);
@@ -104,6 +114,9 @@ public class STableRepositoryTest {
         STable persistedUpdateMock = persistedUpdateOptionalMock.get();
 
         assertEquals(persistedUpdateMock.getItems().size(), mock.getItems().size());
+        assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
+        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
+        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedUpdateMock.getItems(), mock.getItems());
         assertEquals(persistedUpdateMock.getUuid(), mock.getUuid());
         assertEquals(persistedUpdateMock.getTitle(), mock.getTitle());
@@ -123,6 +136,9 @@ public class STableRepositoryTest {
         STable persistedMock = persistedOptionalMock.get();
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
+        assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
+        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
+        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());

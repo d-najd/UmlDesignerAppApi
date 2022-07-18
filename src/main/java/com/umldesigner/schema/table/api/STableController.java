@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.service.STableService;
 
 @RestController
-@RequestMapping("/s/table")
+@RequestMapping(Endpoints.TABLE)
 public class STableController {
 
 	@Autowired

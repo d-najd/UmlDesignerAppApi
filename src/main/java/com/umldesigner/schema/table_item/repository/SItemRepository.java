@@ -16,4 +16,6 @@ public interface SItemRepository extends JpaRepository<SItem, Integer> {
     public List<SItem> findAllByTableUuid(String tUuid); // I am genuinely surprised this works
 
     public Optional<SItem> findByTableUuidAndUuid(String tUuid, String uuid); // spring just keeps on givin
+
+    public Optional<SItem> findByTableUuid_AndUuid(String tableUuid_, String uuid);
 }

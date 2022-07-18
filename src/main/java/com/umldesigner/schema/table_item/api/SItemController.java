@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.table_item.dto.SItemPojo;
-import com.umldesigner.schema.table_item.repository.SItemRepository;
 import com.umldesigner.schema.table_item.service.SItemService;
 
 @RestController
-@RequestMapping("/s/table") // Not sure how to make the item mapping selective so
+@RequestMapping(Endpoints.ITEM) // Not sure how to make the item mapping selective so
 public class SItemController {
 
 	@Autowired
@@ -29,48 +29,48 @@ public class SItemController {
 	// SItemRepository sItemRepository;
 
 	// should be removed in future for security reasons
-	@GetMapping("/item/id/{id}")
+	@GetMapping("/id/{id}")
 	public SItemPojo getById(@PathVariable(value = "id") Integer id) {
 		return sItemService.getById(id);
 	}
 
-	@GetMapping("/item/{uuid}")
+	@GetMapping("/{uuid}")
 	public SItemPojo getByUuid(@PathVariable(value = "uuid") String uuid) {
 		return sItemService.getByUuid(uuid);
 	}
 
-	@GetMapping("/item")
+	@GetMapping
 	public List<SItemPojo> getAll() {
 		return sItemService.getAll();
 	}
 
-	@GetMapping("{tUuid}/item")
+	@GetMapping(Endpoints.TABLE_RAW + "/{tUuid}")
 	public List<SItemPojo> getAllByTUuid(@PathVariable(value = "tUuid") String tUuid) {
 		return sItemService.getAllByTableUuid(tUuid);
 	}
 
-	@PostMapping("/{tUuid}/item")
+	@PostMapping(Endpoints.TABLE_RAW + "/{tUuid}")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public SItemPojo createSaItem(@PathVariable(value = "tUuid") String tUuid,
+	public SItemPojo createSItem(@PathVariable(value = "tUuid") String tUuid,
 			@RequestBody SItemPojo requestSItemPojo) {
 		return sItemService.createSchemaItem(tUuid, requestSItemPojo);
 	}
 
-	@PostMapping("/{tUuid}/item/list")
+	@PostMapping(Endpoints.TABLE_RAW + "/{tUuid}/list")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public List<SItemPojo> createSItemList(@PathVariable(value = "tUuid") String tUuid,
 			@RequestBody List<SItemPojo> requestSItemPojoList) {
 		return sItemService.createSchemaItemList(tUuid, requestSItemPojoList);
 	}
 
-	@PutMapping("/item/{uuid}")
+	@PutMapping("/{uuid}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public SItemPojo updateSItem(@PathVariable(value = "uuid") String uuid,
 			@RequestBody SItemPojo requestSItemPojo) {
 		return sItemService.updateSchemaItem(uuid, requestSItemPojo);
 	}
 
-	@PutMapping("/{tUuid}/item1/{fUuid}/item2/{sUuid}")
+	@PutMapping(Endpoints.TABLE_RAW + "/{tUuid}" + Endpoints.ITEM_RAW + "1/{fUuid}" + Endpoints.ITEM_RAW + "2/{sUuid}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void swapSItems(
 			@PathVariable(value = "tUuid") String tUuid,
@@ -79,7 +79,7 @@ public class SItemController {
 		sItemService.swapSchemaItems(tUuid, fUuid, sUuid);
 	}
 
-	@DeleteMapping("/item/{uuid}")
+	@DeleteMapping("/{uuid}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void removeSItem(@PathVariable(value = "uuid") String uuid) {
 		sItemService.removeSchemaItem(uuid);

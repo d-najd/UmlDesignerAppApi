@@ -34,7 +34,7 @@ public class SItem extends BaseEntity {
   @ManyToOne(targetEntity = STable.class, fetch = FetchType.LAZY, optional = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @NonNull
-  @JoinColumn(name = "tableUuid", referencedColumnName = "uuid", nullable = false, updatable = false)
+  @JoinColumn(name = "tableUuid", referencedColumnName = "uuid", updatable = false)
   private STable table;
 
   @Column(name = "tableUuid", updatable = false, insertable = false)

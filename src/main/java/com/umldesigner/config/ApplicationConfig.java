@@ -12,10 +12,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
 
 @Configuration
-@Slf4j
 public class ApplicationConfig {
 
   @PostConstruct

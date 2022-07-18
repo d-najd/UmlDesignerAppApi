@@ -1,8 +1,5 @@
 package com.umldesigner.schema.table.mapper.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,8 +8,6 @@ import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.mapper.STableMapper;
-import com.umldesigner.schema.table_item.domain.SItem;
-import com.umldesigner.schema.table_item.dto.SItemPojo;
 import com.umldesigner.schema.table_item.mapper.SItemMapper;
 
 @Component
