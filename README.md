@@ -42,7 +42,7 @@ git clone https://github.com/d-najd/UmlDesignerAppApi
    - Ability to generate uml diagrams from mysql code
 
 # Demo
- File called postman.json contains all the requests available, good luck!
+ Visit https://www.postman.com/collections/e3ef56648f12f06fc6e4 to see available mappings
 
 # Downloads (WORK IN PROGRESS)
 # Related Links
