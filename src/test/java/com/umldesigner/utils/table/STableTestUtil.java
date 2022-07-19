@@ -1,6 +1,7 @@
 package com.umldesigner.utils.table;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
@@ -21,13 +22,17 @@ public class STableTestUtil {
         return mock;
     }
 
-    public static STablePojo createMockTablePojoEntity(ArrayList<SItemPojo> items, String title, float x, float y) {
+    public static STablePojo createMockTablePojo(List<SItemPojo> mockItemPojoList, String title, float x, float y) {
         STablePojo mock = new STablePojo();
-        mock.setItems(items);
+        mock.setItems(mockItemPojoList);
         mock.setTitle(title);
         mock.setX(x);
         mock.setY(y);
         return mock;
+    }
+
+    public static STablePojo createMockTablePojo(){
+        return createMockTablePojo(null, "Mock Title", 2f, -1.42f);
     }
 
 

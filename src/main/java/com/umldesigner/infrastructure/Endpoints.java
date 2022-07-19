@@ -15,13 +15,16 @@ public class Endpoints {
      */
     public static final String ITEM_RAW = "/item";
     /**
-     * Table endpoint which contains {@value #SCHEMA} before it
+     * Table endpoint which contains {@value #SCHEMA} and {@value #TABLE_RAW}  
      */
     public static final String TABLE = SCHEMA + TABLE_RAW;
     /**
-     * Item endpoint which contains {@value #SCHEMA} before it
+     * Item endpoint which contains {@value #SCHEMA} and {@value #ITEM_RAW}
      */
     public static final String ITEM = SCHEMA + ITEM_RAW;
 
+    /**
+     * Foreign key between SItems endpoint contains {@value #ITEM} before it
+     */
     public static final String ITEM_FK = ITEM + "/foreignKey";
 }
