@@ -1,9 +1,6 @@
-package com.umldesigner.integration.table.repository;
+package com.umldesigner.schema.table.repository;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,9 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.repository.STableRepository;
+import com.umldesigner.schema.table.utils.table.STableTestUtil;
 import com.umldesigner.schema.table_item.domain.SItem;
-import com.umldesigner.utils.table.STableTestUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +43,7 @@ public class STableRepositoryTest {
         sTableRepository.save(mock);
 
         List<STable> sTableList = sTableRepository.findAll();
-        assertThat(sTableList, is(not(empty())));
+        assertFalse(sTableList.isEmpty());
     }
 
     @Test
@@ -55,7 +51,7 @@ public class STableRepositoryTest {
     public void createSTable() {
         // create and verify
         STable mock = STableTestUtil.createMockTableEntity();
-        sTableRepository.save(mock);
+        mock = sTableRepository.save(mock);
 
         Optional<STable> persistedOptionalMock = sTableRepository.findByUuid(mock.getUuid());
         assertTrue(persistedOptionalMock.isPresent());
@@ -63,8 +59,6 @@ public class STableRepositoryTest {
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
         assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
-        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
-        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());
@@ -77,7 +71,7 @@ public class STableRepositoryTest {
     public void updateSTable() {
         // create and verify
         STable mock = STableTestUtil.createMockTableEntity();
-        sTableRepository.save(mock);
+        mock = sTableRepository.save(mock);
 
         Optional<STable> persistedOptionalMock = sTableRepository.findByUuid(mock.getUuid());
         assertTrue(persistedOptionalMock.isPresent());
@@ -85,8 +79,6 @@ public class STableRepositoryTest {
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
         assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
-        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
-        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());
@@ -114,9 +106,7 @@ public class STableRepositoryTest {
         STable persistedUpdateMock = persistedUpdateOptionalMock.get();
 
         assertEquals(persistedUpdateMock.getItems().size(), mock.getItems().size());
-        assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
-        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
-        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
+        assertEquals(3, persistedMock.getItems().size(), "STable Mock should have 3 items by default");
         assertEquals(persistedUpdateMock.getItems(), mock.getItems());
         assertEquals(persistedUpdateMock.getUuid(), mock.getUuid());
         assertEquals(persistedUpdateMock.getTitle(), mock.getTitle());
@@ -129,7 +119,7 @@ public class STableRepositoryTest {
     public void removeSTable() {
         // create book and verify
         STable mock = STableTestUtil.createMockTableEntity();
-        sTableRepository.save(mock);
+        mock = sTableRepository.save(mock);
 
         Optional<STable> persistedOptionalMock = sTableRepository.findByUuid(mock.getUuid());
         assertTrue(persistedOptionalMock.isPresent());
@@ -137,8 +127,6 @@ public class STableRepositoryTest {
 
         assertEquals(persistedMock.getItems().size(), mock.getItems().size());
         assertEquals(persistedMock.getItems().size(), 2, "STable Mock should have 2 items by default");
-        assertEquals(persistedMock.getItems().get(0).getPosition(), 0);
-        assertEquals(persistedMock.getItems().get(1).getPosition(), 1);
         assertEquals(persistedMock.getItems(), mock.getItems());
         assertEquals(persistedMock.getUuid(), mock.getUuid());
         assertEquals(persistedMock.getTitle(), mock.getTitle());

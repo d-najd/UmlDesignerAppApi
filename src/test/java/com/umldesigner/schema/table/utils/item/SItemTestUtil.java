@@ -1,4 +1,4 @@
-package com.umldesigner.utils.item;
+package com.umldesigner.schema.table.utils.item;
 
 import java.util.ArrayList;
 import java.util.List;

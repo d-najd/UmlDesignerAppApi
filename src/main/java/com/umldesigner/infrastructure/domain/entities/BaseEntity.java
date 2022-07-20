@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

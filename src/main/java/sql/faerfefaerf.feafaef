@@ -1,0 +1,45 @@
+/* not sure if this is even needed but im getting desperate */
+
+
+CREATE TABLE `s_table`
+  (
+     `id`    INT NOT NULL,
+     `uuid`  VARCHAR(255) DEFAULT NULL,
+     `x`     FLOAT DEFAULT NULL,
+     `y`     FLOAT DEFAULT NULL,
+     `title` VARCHAR(255) DEFAULT NULL,
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `uk_185smo5apdd1qeiadijrsbmgn` (`uuid`)
+  )
+
+
+
+ CREATE TABLE `s_item`
+  (
+     `id`           INT NOT NULL auto_increment,
+     `uuid`         VARCHAR(255) DEFAULT NULL,
+     `isprimarykey` BIT(1) DEFAULT NULL,
+     `position`     INT DEFAULT NULL,
+     `tableuuid`    VARCHAR(255) DEFAULT NULL,
+     `type`         VARCHAR(255) DEFAULT NULL,
+     `value`        VARCHAR(255) DEFAULT NULL,
+     PRIMARY KEY (`id`),
+     KEY `fk7808fahxdgex6uuc32wv8dcwi` (`tableuuid`),
+     CONSTRAINT `fk7808fahxdgex6uuc32wv8dcwi` FOREIGN KEY (`tableuuid`)
+     REFERENCES `s_table` (`uuid`) ON DELETE CASCADE
+  )
+
+
+
+
+
+
+  CREATE TABLE `s_fk`
+  (
+     `firstuuid`  VARCHAR(255) NOT NULL,
+     `seconduuid` VARCHAR(255) NOT NULL,
+     `ondelete`   VARCHAR(2) DEFAULT NULL,
+     `onupdate`   VARCHAR(2) DEFAULT NULL,
+     PRIMARY KEY (`firstuuid`, `seconduuid`)
+  )
+

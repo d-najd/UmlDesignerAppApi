@@ -69,7 +69,7 @@ public class STableServiceImpl implements STableService {
         STable transientSTable = sTableMapper.dtoToEntity(sTablePojo);
 
         // saving the table without the items
-        List<SItem> b = transientSTable.getItems();
+        List<SItem> items = transientSTable.getItems();
         transientSTable.setItems(null);
         STable persistentSTable = sTableRepository.save(transientSTable);
 
@@ -77,10 +77,11 @@ public class STableServiceImpl implements STableService {
         // them both
         // NOTE this is probably a terrible way of doing things need to find "more
         // elegant" way later
-        for (SItem item : b) {
-            item.setTable(persistentSTable);
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).setPosition(i);
+            items.get(i).setTable(persistentSTable);
         }
-        persistentSTable.setItems(b);
+        persistentSTable.setItems(items);
         persistentSTable = sTableRepository.save(transientSTable);
 
         return sTableMapper.entityToDto(persistentSTable);
