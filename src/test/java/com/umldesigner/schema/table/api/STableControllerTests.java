@@ -1,4 +1,4 @@
-package com.umldesigner.schema.table.controller;
+package com.umldesigner.schema.table.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.empty;
@@ -19,29 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
-import com.umldesigner.schema.table.mapper.STableMapper;
 import com.umldesigner.schema.table.repository.STableRepository;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table.utils.table.STableTestUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.jpa.hibernate.ddl-auto=none")
 @AutoConfigureMockMvc
 @Slf4j
@@ -51,16 +48,13 @@ import lombok.extern.slf4j.Slf4j;
 
 // NOTE I am creating multiple of the same object because if I pass them they
 // might get modified on the way making most of the code useless
-public class UmlDesignerSTableControllerTests {
+public class STableControllerTests {
 
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
     ObjectMapper objectMapper;
-
-    @Autowired
-    STableMapper sTableMapper;
 
     @Autowired
     STableService sTableService;
@@ -72,6 +66,7 @@ public class UmlDesignerSTableControllerTests {
     public void injectedComponentsAreNotNull() {
         assertThat(mockMvc).isNotNull();
         assertThat(objectMapper).isNotNull();
+        assertThat(sTableService).isNotNull();
     }
 
     @Test
@@ -142,6 +137,7 @@ public class UmlDesignerSTableControllerTests {
 
     @Test
     @DisplayName("Create Schema Table")
+    @Disabled
     /**
      * @apiNote we have a mock with no items becauase first we save the table
      *          without the items so we get the uuid of the table so
@@ -166,7 +162,7 @@ public class UmlDesignerSTableControllerTests {
 
         when(this.sTableRepository.save(noItemsMock)).thenReturn(noItemsMock);
         when(this.sTableRepository.save((mock))).thenReturn(mock);
-        
+
         try {
             String jsonBodyPayload = objectMapper.writer().writeValueAsString(mockPojoRequest);
 

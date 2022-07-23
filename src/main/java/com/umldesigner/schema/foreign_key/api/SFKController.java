@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,9 @@ import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.service.SFKService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping(Endpoints.ITEM_FK)
 public class SFKController {
@@ -32,22 +36,31 @@ public class SFKController {
      */
     @GetMapping("/{fUuid}/{sUuid}")
     public SFKPojo getByIdentity(
-            @RequestParam(value = "fUuid") String fUuid,
-            @RequestParam(value = "sUuid") String sUuid) {
-        return sfkService.findById(fUuid, sUuid);
+            @PathVariable(value = "fUuid") String fUuid,
+            @PathVariable(value = "sUuid") String sUuid) {
+        return sfkService.getById(fUuid, sUuid);
     }
 
     @GetMapping
     public List<SFKPojo> getAll() {
-        return sfkService.findAll();
+        return sfkService.getAll();
     }
 
     @PostMapping("/{fUuid}/{sUuid}")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SFKPojo createSchemaForeignKey(
             @RequestBody SFKPojo requestSfkPojo,
-            @RequestParam(value = "fUuid") String fUuid,
-            @RequestParam(value = "sUuid") String sUuid) {
+            @PathVariable(value = "fUuid") String fUuid,
+            @PathVariable(value = "sUuid") String sUuid) {
         return sfkService.createForeignKey(fUuid, sUuid, requestSfkPojo);
+    }
+
+    @PutMapping("/{fUuid}/{sUuid}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public SFKPojo updateSchemaForeignKey(
+            @RequestBody SFKPojo requestSfkPojo,
+            @PathVariable(value = "fUuid") String fUuid,
+            @PathVariable(value = "sUuid") String sUuid) {
+       return sfkService.updateForeignKey(fUuid, sUuid, requestSfkPojo); 
     }
 }

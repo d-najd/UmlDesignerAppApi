@@ -10,12 +10,11 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.utils.table.STableTestUtil;
@@ -25,9 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Transactional
-@RunWith(SpringRunner.class)
 @Slf4j
-public class STableRepositoryTest {
+class STableRepositoryTest {
+    
     @Autowired
     private STableRepository sTableRepository;
 

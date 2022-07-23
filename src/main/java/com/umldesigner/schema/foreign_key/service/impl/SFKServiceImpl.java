@@ -34,7 +34,7 @@ public class SFKServiceImpl implements SFKService {
     SFKFascade sfkFascade;
 
     @Override
-    public SFKPojo findById(String fUuid, String sUuid) {
+    public SFK findById(String fUuid, String sUuid) {
         log.debug("Execute findById with parameters {}, {}", fUuid, sUuid);
 
         SFK sfkEntity = sfkRepository.findById(new BaseMIdentity(fUuid, sUuid))
@@ -43,13 +43,20 @@ public class SFKServiceImpl implements SFKService {
                             new BaseMIdentity(fUuid, sUuid));
                     return new ResourceNotFoundException("Resource Schema Primary Key not found");
                 });
-        return sfkMapper.entityToDto(sfkEntity);
+
+        return sfkEntity;
     }
 
-    public List<SFKPojo> findAll() {
+    public List<SFKPojo> getAll() {
         log.debug("Execute getAll");
 
         return sfkMapper.mapList(sfkRepository.findAll(), SFKPojo.class);
+    }
+
+    public SFKPojo getById(String fUuid, String sUuid) {
+        log.debug("Execute getById with parameters {}, {}", fUuid, sUuid);
+
+        return sfkMapper.entityToDto(findById(fUuid, sUuid));
     }
 
     // TODO whem implementing multiple projects make sure that the foreign keys
@@ -62,8 +69,23 @@ public class SFKServiceImpl implements SFKService {
         pojo.setIdentity(new BaseMIdentityPojo(fUuid, sUuid));
         sfkFascade.isValid(fUuid, sUuid, pojo);
 
-        SFK persistedSfk = sfkMapper.dtoToEntity(pojo);
+        SFK persistedSfk = sfkRepository.save(sfkMapper.dtoToEntity(pojo));
 
         return sfkMapper.entityToDto(persistedSfk);
+    }
+
+    @Override
+    public SFKPojo updateForeignKey(String fUuid, String sUuid, SFKPojo pojo) {
+        log.debug("Execute updateForeignKey with parameters {}, {}, {}", fUuid, sUuid, pojo);
+
+        pojo.setIdentity(new BaseMIdentityPojo(fUuid, sUuid));
+        sfkFascade.isValid(fUuid, sUuid, pojo);
+
+        SFK persistedSFK = findById(fUuid, sUuid);
+        sfkMapper.mapRequestedFieldForUpdate(persistedSFK, pojo);
+
+        log.debug("test {}, {}", persistedSFK.getOnDelete(), persistedSFK.getOnUpdate());
+
+        return sfkMapper.entityToDto(sfkRepository.saveAndFlush(persistedSFK));
     }
 }

@@ -4,14 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.umldesigner.schema.foreign_key.domain.SFK;
 import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 
 @Service
 public interface SFKService {
 
-   public SFKPojo findById(String fUuid, String sUuid);
+   public SFK findById(String fUuid, String sUuid);
 
-   public List<SFKPojo> findAll();
+   public List<SFKPojo> getAll();
+
+   public SFKPojo getById(String fUuid, String sUuid);
 
    /**
     * creates foreign key between s_item values
@@ -22,5 +25,7 @@ public interface SFKService {
     * @return pojo of the created foreign key
     */
    public SFKPojo createForeignKey(String fUuid, String sUuid, SFKPojo pojo);
+
+   public SFKPojo updateForeignKey(String fUuid, String sUuid, SFKPojo pojo);
 
 }
