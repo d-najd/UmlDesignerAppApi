@@ -50,6 +50,7 @@ public class STableServiceTest {
      *          save the table with the items
      * @implNote find a better way to save the items at once so I can get rid of
      *           this spaghetti
+     * @see {@link com.umldesigner.schema.table.service.impl.STableServiceImpl#createSchemaTable(STablePojo)}
      */
     @Test
     void createSchemaTableTest() {

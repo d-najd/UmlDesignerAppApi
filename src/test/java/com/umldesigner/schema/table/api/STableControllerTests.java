@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.umldesigner.infrastructure.Endpoints;
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.repository.STableRepository;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table.utils.table.STableTestUtil;
@@ -133,49 +130,6 @@ public class STableControllerTests {
         }
 
         verify(this.sTableRepository).findAll();
-    }
-
-    @Test
-    @DisplayName("Create Schema Table")
-    @Disabled
-    /**
-     * @apiNote we have a mock with no items becauase first we save the table
-     *          without the items so we get the uuid of the table so
-     *          that we can set a reference for each item to the table (uuid), after
-     *          that we make a table with the items and save it again and
-     *          now we have a table with items also need to find a better way of
-     *          doing this in the future
-     */
-    public void createSTableTest() {
-        // creating mocks
-        STable mock = STableTestUtil.createMockTableEntity();
-        STable noItemsMock = STableTestUtil.createMockTableEntity();
-        STable mockClone = STableTestUtil.createMockTableEntity();
-        STablePojo mockPojoRequest = STableTestUtil.createMockTablePojo();
-
-        // setting correct values
-        noItemsMock.setItems(null);
-        mock.getItems().get(0).setPosition(0);
-        mock.getItems().get(1).setPosition(1);
-        mockClone.getItems().get(0).setPosition(0);
-        mockClone.getItems().get(1).setPosition(1);
-
-        when(this.sTableRepository.save(noItemsMock)).thenReturn(noItemsMock);
-        when(this.sTableRepository.save((mock))).thenReturn(mock);
-
-        try {
-            String jsonBodyPayload = objectMapper.writer().writeValueAsString(mockPojoRequest);
-
-            this.mockMvc.perform(post(Endpoints.TABLE)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(jsonBodyPayload))
-                    .andDo(print())
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
     }
 
     /*
