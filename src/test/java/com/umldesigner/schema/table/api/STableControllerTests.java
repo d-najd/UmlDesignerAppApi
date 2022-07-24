@@ -170,8 +170,8 @@ public class STableControllerTests {
                     // checking for size n stuff will be useless if there are no items in the table
                     .andExpect(jsonPath("$.items", is(not(empty()))))
                     .andExpect(jsonPath("$.items", hasSize(mock.getItems().size())))
-                    .andExpect(jsonPath("$.x").value(mock.getX()))
-                    .andExpect(jsonPath("$.y").value(mock.getY()));
+                    .andExpect(jsonPath("$.x", is(closeTo(mock.getX(), 0.000001))))
+                    .andExpect(jsonPath("$.y", is(closeTo(mock.getY(), 0.000001))));
         } catch (Exception e) {
             e.printStackTrace();
             fail();
