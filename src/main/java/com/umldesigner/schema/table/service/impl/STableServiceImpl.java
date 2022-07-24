@@ -73,7 +73,6 @@ public class STableServiceImpl implements STableService {
         transientSTable.setItems(null);
         STable persistentSTable = sTableRepository.save(transientSTable);
 
-
         // setting the table to the items since they need it to be created and saving
         // them both
         // NOTE this is probably a terrible way of doing things need to find "more

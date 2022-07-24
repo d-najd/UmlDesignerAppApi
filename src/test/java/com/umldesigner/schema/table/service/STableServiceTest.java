@@ -1,10 +1,7 @@
 package com.umldesigner.schema.table.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -45,20 +42,6 @@ public class STableServiceTest {
     @MockBean
     STableRepository sTableRepository;
 
-    @Test
-    void createSchemaTableTest() {
-        STable mock = STableTestUtil.createMockTableEntity();
-        STablePojo mockPojoRequest = STableTestUtil.createMockTablePojo();
-
-        // creating mocks
-        STablePojo persistedPojo = createSchemaTable();
-
-        assertEquals(2, persistedPojo.getItems().size());
-
-        verify(this.sTableMapper).dtoToEntity(mockPojoRequest);
-        verify(this.sTableMapper).entityToDto(mock);
-    }
-
     /**
      * @apiNote while creating mocks we need all the different types because
      *          first the request is taken and and the items are put in temprary
@@ -68,7 +51,8 @@ public class STableServiceTest {
      * @implNote find a better way to save the items at once so I can get rid of
      *           this spaghetti
      */
-    STablePojo createSchemaTable() {
+    @Test
+    void createSchemaTableTest() {
         STable mock = STableTestUtil.createMockTableEntity();
         STable mockOrderedItems = STableTestUtil.createMockTableEntity();
         STable noItemsMock = STableTestUtil.createMockTableEntity();
@@ -91,23 +75,7 @@ public class STableServiceTest {
 
         STablePojo persistedPojo = sTableService.createSchemaTable(mockPojoRequest);
 
-        return persistedPojo;
-    }
-
-    @Test
-    void testRemoveSchemaTable() {
-        STablePojo persistedTable = createSchemaTable();
-
-        sTableRepository.findAll();
-
-        sTableService.removeSchemaTable(persistedTable.getUuid());
-
-        List<STable> test = sTableRepository.findAll();
-        log.debug("size {}", test);
-    }
-
-    @Test
-    void testUpdateSchemaTable() {
-
+        assertEquals(2, persistedPojo.getItems().size());
+        assertEquals(mock.getTitle(), persistedPojo.getTitle());
     }
 }
