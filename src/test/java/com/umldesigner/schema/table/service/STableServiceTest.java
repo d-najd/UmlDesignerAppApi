@@ -49,7 +49,9 @@ public class STableServiceTest {
      *          we save the table, order them and set the table to them and them
      *          save the table with the items
      * @implNote find a better way to save the items at once so I can get rid of
-     *           this spaghetti
+     *           this spaghetti, this is just a testing to see if testing the
+     *           services is viable and it doen't seem to be, it takes too much
+     *           resources
      * @see {@link com.umldesigner.schema.table.service.impl.STableServiceImpl#createSchemaTable(STablePojo)}
      */
     @Test

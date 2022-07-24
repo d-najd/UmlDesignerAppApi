@@ -16,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,8 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.umldesigner.infrastructure.Endpoints;
-import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.repository.STableRepository;
+import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table.utils.table.STableTestUtil;
 
@@ -43,8 +41,6 @@ import lombok.extern.slf4j.Slf4j;
 // that there are weaknesses with this way like not knowing if a method inside
 // the service has been called for sure
 
-// NOTE I am creating multiple of the same object because if I pass them they
-// might get modified on the way making most of the code useless
 public class STableControllerTests {
 
     @Autowired
@@ -53,11 +49,8 @@ public class STableControllerTests {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
-    STableService sTableService;
-
     @MockBean
-    STableRepository sTableRepository;
+    STableService sTableService;
 
     @Test
     public void injectedComponentsAreNotNull() {
@@ -70,66 +63,57 @@ public class STableControllerTests {
     @DisplayName("Get Schema Table by Uuid")
     public void getByUuidTest() {
         String mockUuid = "mockUUID";
-        STable mock = STableTestUtil.createMockTableEntity();
-        STable mockClone = STableTestUtil.createMockTableEntity();
+        STablePojo mock = STableTestUtil.createMockTablePojo();
 
-        when(this.sTableRepository.findByUuid(mockUuid)).thenReturn(Optional.of(mock));
+        when(this.sTableService.getByUuid(mockUuid)).thenReturn(mock);
         try {
             this.mockMvc.perform(get(Endpoints.TABLE + "/" + mockUuid))
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(jsonPath("$.title", is(mockClone.getTitle())))
+                    .andExpect(jsonPath("$.title", is(mock.getTitle())))
                     // checking for size n stuff will be useless if there are no items in the table
                     .andExpect(jsonPath("$.items", is(not(empty()))))
-                    .andExpect(jsonPath("$.items", hasSize(mockClone.getItems().size())))
-                    .andExpect(jsonPath("$.x").value(mockClone.getX()))
-                    .andExpect(jsonPath("$.y").value(mockClone.getY()));
+                    .andExpect(jsonPath("$.items", hasSize(mock.getItems().size())))
+                    .andExpect(jsonPath("$.x").value(mock.getX()))
+                    .andExpect(jsonPath("$.y").value(mock.getY()));
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
 
-        verify(this.sTableRepository).findByUuid(mockUuid);
+        verify(this.sTableService).getByUuid(mockUuid);
     }
 
     @Test
     @DisplayName("Get All Schema Table's")
     public void getAllTest() {
+        List<STablePojo> mockSTableListPojo = new ArrayList<>();
 
-        List<STable> mockSTableList = new ArrayList<>();
-        List<STable> mockSTableListClone = new ArrayList<>();
+        mockSTableListPojo.add(STableTestUtil.createMockTablePojo());
+        mockSTableListPojo.add(STableTestUtil.createMockTablePojo());
+        mockSTableListPojo.get(0).setTitle("Mock Title 0");
 
-        STable mock1 = STableTestUtil.createMockTableEntity();
-        STable mock2 = STableTestUtil.createMockTableEntity();
-        STable mock1Clone = STableTestUtil.createMockTableEntity();
-        STable mock2Clone = STableTestUtil.createMockTableEntity();
-
-        mockSTableList.add(mock1);
-        mockSTableList.add(mock2);
-        mockSTableListClone.add(mock1Clone);
-        mockSTableListClone.add(mock2Clone);
-
-        when(this.sTableRepository.findAll()).thenReturn(mockSTableList);
+        when(this.sTableService.getAll()).thenReturn(mockSTableListPojo);
 
         try {
             this.mockMvc.perform(get(Endpoints.TABLE))
                     .andDo(print())
                     .andExpect(status().is2xxSuccessful())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(jsonPath("$[0].title", is(mock1Clone.getTitle())))
+                    .andExpect(jsonPath("$[0].title", is(mockSTableListPojo.get(0).getTitle())))
                     // checking for size n stuff will be useless if there are no items in the table
                     .andExpect(jsonPath("$[0].items", is(not(empty()))))
-                    .andExpect(jsonPath("$[0].items", hasSize(mock1Clone.getItems().size())))
-                    .andExpect(jsonPath("$[0].x").value(mock1Clone.getX()))
-                    .andExpect(jsonPath("$[0].y").value(mock1Clone.getY()))
-                    .andExpect(jsonPath("$[1].title", is(mock1Clone.getTitle())));
+                    .andExpect(jsonPath("$[0].items", hasSize(mockSTableListPojo.get(0).getItems().size())))
+                    .andExpect(jsonPath("$[0].x").value(mockSTableListPojo.get(0).getX()))
+                    .andExpect(jsonPath("$[0].y").value(mockSTableListPojo.get(0).getY()))
+                    .andExpect(jsonPath("$[1].title", is(mockSTableListPojo.get(1).getTitle())));
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
 
-        verify(this.sTableRepository).findAll();
+        verify(this.sTableService).getAll();
     }
 
     /*
