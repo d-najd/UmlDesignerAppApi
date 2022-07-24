@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
+import com.umldesigner.schema.table.utils.item.SItemTestUtil;
 import com.umldesigner.schema.table_item.domain.SItem;
 import com.umldesigner.schema.table_item.dto.SItemPojo;
 
@@ -13,8 +14,8 @@ public class STableTestUtil {
     public static STable createMockTableEntity() {
         STable mock = new STable();
         List<SItem> items = new ArrayList<>();
-        items.add(new SItem());
-        items.add(new SItem());
+        items.add(SItemTestUtil.createMockSItemEntity());
+        items.add(SItemTestUtil.createMockSItemEntity());
         mock.setItems(items);
         mock.setId(0);
         mock.setUuid("Mock UUID");
@@ -24,8 +25,10 @@ public class STableTestUtil {
         return mock;
     }
 
-    public static STablePojo createMockTablePojo(List<SItemPojo> mockItemPojoList, String title, float x, float y) {
+    public static STablePojo createMockTablePojo(List<SItemPojo> mockItemPojoList, String title, float x, float y,
+            String uuid) {
         STablePojo mock = new STablePojo();
+        mock.setUuid(uuid);
         mock.setItems(mockItemPojoList);
         mock.setTitle(title);
         mock.setX(x);
@@ -34,8 +37,9 @@ public class STableTestUtil {
     }
 
     public static STablePojo createMockTablePojo() {
-        List<SItemPojo> items = new ArrayList<>(Arrays.asList(new SItemPojo(), new SItemPojo()));
-        return createMockTablePojo(items, "Mock Title", 10.1f, -10.1f);
+        List<SItemPojo> items = new ArrayList<>(
+                Arrays.asList(SItemTestUtil.createMockSItemPojo(), SItemTestUtil.createMockSItemPojo()));
+        return createMockTablePojo(items, "Mock Title", 10.1f, -10.1f, "Mock Uuid");
     }
 
 }

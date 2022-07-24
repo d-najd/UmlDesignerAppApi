@@ -3,6 +3,7 @@ package com.umldesigner.schema.table.utils.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table_item.domain.SItem;
 import com.umldesigner.schema.table_item.dto.SItemPojo;
@@ -19,13 +20,25 @@ public class SItemTestUtil {
         return mock;
     }
 
+    public static SItem createMockSItemEntity(STable table, Boolean isPrimaryKey, String type, String value,
+            String uuid, int position) {
+        SItem mock = new SItem();
+        mock.setIsPrimaryKey(isPrimaryKey);
+        mock.setPosition(position);
+        mock.setTable(table);
+        mock.setType(type);
+        mock.setUuid(uuid);
+        mock.setValue(value);
+        return mock;
+    }
+
     /**
      * creates mock SItemPojo
      * 
      * @return the created mock object
      */
     public static SItemPojo createMockSItemPojo() {
-        return createMockSItemPojo(null, false, "Mock Type", "Mock Value");
+        return createMockSItemPojo(null, false, "Mock Type", "Mock Value", "Mock Uuid");
     }
 
     /**
@@ -37,8 +50,10 @@ public class SItemTestUtil {
      * @param value        the value (ex "hello world", "John" etc)
      * @return the created mock object
      */
-    public static SItemPojo createMockSItemPojo(STablePojo table, Boolean isPrimaryKey, String type, String value) {
+    public static SItemPojo createMockSItemPojo(STablePojo table, Boolean isPrimaryKey, String type, String value,
+            String uuid) {
         SItemPojo mock = new SItemPojo();
+        mock.setUuid(uuid);
         mock.setTable(table);
         mock.setIsPrimaryKey(isPrimaryKey);
         mock.setType(type);
@@ -67,9 +82,23 @@ public class SItemTestUtil {
             int length) {
 
         List<SItemPojo> mockList = new ArrayList<>();
-        for (int i = 1; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             mockList.add(createMockSItemPojo(table, isPrimaryKey == null ? i % 2 == 0 : isPrimaryKey, type + " " + i,
-                    value + " " + i));
+                    value + " " + i, "Mock Uuid " + i));
+        }
+        return mockList;
+    }
+
+    public static List<SItem> createMockSItemList(
+            STable table,
+            Boolean isPrimaryKey,
+            String type,
+            String value,
+            int length) {
+        List<SItem> mockList = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            mockList.add(createMockSItemEntity(table, isPrimaryKey == null ? i % 2 == 0 : isPrimaryKey, type + " " + i,
+                    value + " " + i, "Mock Uuid " + i, i));
         }
         return mockList;
     }
