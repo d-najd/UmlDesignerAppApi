@@ -1,6 +1,8 @@
 package com.umldesigner.schema.foreign_key.fascade;
 
-import com.umldesigner.schema.foreign_key.dto.SFKPojo;
+
+import com.umldesigner.submodules.UmlDesignerShared.schema.foreign_key.dto.SFKPojo;
+
 
 public interface SFKFascade {
     // NOTE if this has lots of methods (more than 5) fascade design pattern should

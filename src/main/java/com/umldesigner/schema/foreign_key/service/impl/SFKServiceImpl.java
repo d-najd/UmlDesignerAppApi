@@ -11,11 +11,11 @@ import com.umldesigner.infrastructure.domain.identities.BaseMIdentity;
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
 import com.umldesigner.infrastructure.pojo.identities.BaseMIdentityPojo;
 import com.umldesigner.schema.foreign_key.domain.SFK;
-import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.fascade.SFKFascade;
 import com.umldesigner.schema.foreign_key.mapper.SFKMapper;
 import com.umldesigner.schema.foreign_key.repository.SFKRepository;
 import com.umldesigner.schema.foreign_key.service.SFKService;
+import com.umldesigner.submodules.UmlDesignerShared.schema.foreign_key.dto.SFKPojo;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.schema.foreign_key.domain.SFK;
-import com.umldesigner.schema.foreign_key.dto.SFKPojo;
+import com.umldesigner.submodules.UmlDesignerShared.schema.foreign_key.dto.SFKPojo;
 
 @Service
 public interface SFKService {

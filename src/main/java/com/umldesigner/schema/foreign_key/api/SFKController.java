@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.umldesigner.infrastructure.Endpoints;
-import com.umldesigner.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.service.SFKService;
+
+import com.umldesigner.submodules.UmlDesignerShared.schema.foreign_key.dto.SFKPojo;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +63,6 @@ public class SFKController {
             @RequestBody SFKPojo requestSfkPojo,
             @PathVariable(value = "fUuid") String fUuid,
             @PathVariable(value = "sUuid") String sUuid) {
-       return sfkService.updateForeignKey(fUuid, sUuid, requestSfkPojo); 
+        return sfkService.updateForeignKey(fUuid, sUuid, requestSfkPojo);
     }
 }
