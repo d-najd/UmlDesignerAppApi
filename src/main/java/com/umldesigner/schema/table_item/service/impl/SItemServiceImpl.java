@@ -13,11 +13,11 @@ import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
 import com.umldesigner.schema.table.domain.STable;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table_item.domain.SItem;
-import com.umldesigner.schema.table_item.dto.SItemPojo;
 import com.umldesigner.schema.table_item.logic.SItemLogic;
 import com.umldesigner.schema.table_item.mapper.SItemMapper;
 import com.umldesigner.schema.table_item.repository.SItemRepository;
 import com.umldesigner.schema.table_item.service.SItemService;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table_item.dto.SItemPojo;
 
 import lombok.extern.slf4j.Slf4j;
 

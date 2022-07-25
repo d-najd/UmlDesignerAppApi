@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.dto.STablePojo;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table.dto.STablePojo;
 
 @Service
 public interface STableService {

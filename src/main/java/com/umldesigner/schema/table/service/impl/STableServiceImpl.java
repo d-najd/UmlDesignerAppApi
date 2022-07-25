@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.umldesigner.infrastructure.exception.ResourceNotFoundException;
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.mapper.STableMapper;
 import com.umldesigner.schema.table.repository.STableRepository;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table_item.domain.SItem;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table.dto.STablePojo;
 
 import lombok.extern.slf4j.Slf4j;
 

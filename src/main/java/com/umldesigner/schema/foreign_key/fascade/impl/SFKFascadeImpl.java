@@ -3,7 +3,7 @@ package com.umldesigner.schema.foreign_key.fascade.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.umldesigner.infrastructure.pojo.identities.BaseMIdentityPojo;
+import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.identities.BaseMIdentityPojo;
 import com.umldesigner.submodules.UmlDesignerShared.schema.foreign_key.dto.SFKPojo;
 import com.umldesigner.schema.foreign_key.fascade.SFKFascade;
 import com.umldesigner.schema.table_item.domain.SItem;

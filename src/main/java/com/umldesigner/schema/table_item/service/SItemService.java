@@ -7,7 +7,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.umldesigner.schema.table_item.domain.SItem;
-import com.umldesigner.schema.table_item.dto.SItemPojo;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table_item.dto.SItemPojo;
 
 @Service
 public interface SItemService {

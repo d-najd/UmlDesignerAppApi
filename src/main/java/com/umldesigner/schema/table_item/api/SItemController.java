@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.umldesigner.infrastructure.Endpoints;
-import com.umldesigner.schema.table_item.dto.SItemPojo;
+
 import com.umldesigner.schema.table_item.service.SItemService;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table_item.dto.SItemPojo;
 
 @RestController
 @RequestMapping(Endpoints.ITEM) // Not sure how to make the item mapping selective so

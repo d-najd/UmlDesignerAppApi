@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.umldesigner.infrastructure.mapper.AbstractGeneralMapper;
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.mapper.STableMapper;
 import com.umldesigner.schema.table_item.mapper.SItemMapper;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table.dto.STablePojo;
 
 @Component
 public class STableMapperImpl extends AbstractGeneralMapper implements STableMapper {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.umldesigner.schema.table.domain.STable;
-import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table_item.domain.SItem;
-import com.umldesigner.schema.table_item.dto.SItemPojo;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table.dto.STablePojo;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table_item.dto.SItemPojo;
 
 public class SItemTestUtil {
 

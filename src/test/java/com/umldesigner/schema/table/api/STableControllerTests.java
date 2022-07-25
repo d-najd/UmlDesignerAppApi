@@ -31,9 +31,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.umldesigner.infrastructure.Endpoints;
-import com.umldesigner.schema.table.dto.STablePojo;
 import com.umldesigner.schema.table.service.STableService;
 import com.umldesigner.schema.table.utils.table.STableTestUtil;
+import com.umldesigner.submodules.UmlDesignerShared.schema.table.dto.STablePojo;
 
 import lombok.extern.slf4j.Slf4j;
 
