@@ -45,6 +45,7 @@ public class STableController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public STablePojo createSchemaTable(@RequestBody STablePojo requestSTablePojo) {
 		return sTableService.createSchemaTable(requestSTablePojo);
+		
 	}
 
 	@PutMapping("/{uuid}")
