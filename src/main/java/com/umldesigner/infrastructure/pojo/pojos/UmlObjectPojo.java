@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class UmlObjectPojo extends BasePojo {
-    private Float x;
-    private Float y;
+    private float x;
+    private float y;
 }

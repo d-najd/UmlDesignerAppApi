@@ -15,10 +15,10 @@ public abstract class UmlObjectEntity extends BaseEntity {
 
     @Column(name = "x")
     @NonNull
-    private Float x;
+    private float x;
 
     @Column(name = "y")
     @NonNull
-    private Float y;
+    private float y;
 
 }
