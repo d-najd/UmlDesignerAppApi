@@ -20,5 +20,4 @@ public abstract class UmlObjectEntity extends BaseEntity {
     @Column(name = "y")
     @NonNull
     private float y;
-
 }
