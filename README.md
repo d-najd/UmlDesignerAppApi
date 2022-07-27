@@ -46,5 +46,5 @@ git clone https://github.com/d-najd/UmlDesignerAppApi
 
 # Downloads (WORK IN PROGRESS)
 # Related Links
-- The app which the api is built for https://github.com/d-najd/UmlDesigner
-- Shared repository (submodule) which is used between the projects https://github.com/d-najd/UmlDesignerShared
+- The app which the api is built for: https://github.com/d-najd/UmlDesigner
+- Shared repository (submodule) which is used between the projects: https://github.com/d-najd/UmlDesignerShared
