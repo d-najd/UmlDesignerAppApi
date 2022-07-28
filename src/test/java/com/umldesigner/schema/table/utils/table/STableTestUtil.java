@@ -2,6 +2,7 @@ package com.umldesigner.schema.table.utils.table;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.umldesigner.schema.table.domain.STable;
@@ -14,10 +15,13 @@ public class STableTestUtil {
     public static STable createMockTableEntity() {
         STable mock = new STable();
         List<SItem> items = new ArrayList<>();
-        items.add(SItemTestUtil.createMockSItemEntity());
-        items.add(SItemTestUtil.createMockSItemEntity());
+        SItem item1 = SItemTestUtil.createMockSItemEntity();
+        SItem item2 = SItemTestUtil.createMockSItemEntity();
+        item1.setPosition(0);
+        item2.setPosition(1);
+        Collections.addAll(items, item1, item2);
         mock.setItems(items);
-        mock.setId(0);
+        //mock.setId(0);
         mock.setUuid("Mock UUID");
         mock.setTitle("Mock Title");
         mock.setX(10.1f);
